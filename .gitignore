@@ -8,6 +8,8 @@ target/
 .project
 mvnw
 mvnw.cmd
+/.apt_generated/
+/.apt_generated_tests/
 
 ### STS ###
 .apt_generated
