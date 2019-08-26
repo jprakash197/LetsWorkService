@@ -85,5 +85,13 @@
 				<environment>develop</environment>
 			</properties>
 		</profile>
+		
+		<profile>
+			<id>qa</id>
+			<properties>
+				<activatedProperties>qa</activatedProperties>
+				<environment>qa</environment>
+			</properties>
+		</profile>
 	</profiles>
 </project>
