@@ -15,10 +15,7 @@ public class HomeController {
 	
 	@GetMapping("/")
 	public String home() {
-		return "Welcome to " + letsWorkProperty.getTitle() 
-		+ " || PROJECT : " + letsWorkProperty.getProject()
-		+ " || VERSION : " + letsWorkProperty.getVersion() 
-		+ " || ENVIORNMENT : " + letsWorkProperty.getEnvironment();
+		return letsWorkProperty.toString();
 	}
 	
 }

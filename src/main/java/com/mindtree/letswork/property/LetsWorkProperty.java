@@ -48,4 +48,10 @@ public class LetsWorkProperty {
 		this.environment = environment;
 	}
 
+	@Override
+	public String toString() {
+		return "Welcome to " + this.getTitle() + " || PROJECT : " + this.getProject() + " || VERSION : "
+				+ this.getVersion() + " || ENVIORNMENT : " + this.getEnvironment();
+	}
+
 }
