@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -17,6 +18,7 @@ import org.hibernate.annotations.GenericGenerator;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.mindtree.letswork.module.booking.entity.Booking;
+import com.mindtree.letswork.module.booking.entity.Payment;
 
 @Entity
 @Table
@@ -44,9 +46,6 @@ public class User {
 	@Column(name = "email")
 	private String email;
 	
-	@Column(name = "photo")
-	private String photo;
-	
 	@Column(name = "password")
 	private String password;
 	
@@ -61,5 +60,8 @@ public class User {
 	
 	@OneToMany (fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL)
     private List<Booking> bookings;
+	
+	@OneToOne(mappedBy = "user")
+	private Payment paymentInfo; 
 
 }

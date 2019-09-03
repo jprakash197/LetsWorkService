@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.mindtree.letswork.module.authentication.entity.User;
+
 @Entity
 @Table(name="payment")
 public class Payment {
@@ -26,6 +28,9 @@ public class Payment {
 	
 	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	private Card card;
+	
+	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	private User user; 
 
 	public Payment() 
 	{

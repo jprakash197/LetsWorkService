@@ -1,4 +1,4 @@
-package com.mindtree.userProfile.module.userprofile.entity;
+package com.mindtree.letswork.module.booking.entity;
 
 import java.sql.Date;
 
@@ -7,6 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.mindtree.letswork.module.authentication.entity.User;
+import com.mindtree.letswork.module.venue.entity.Venue;
 
 @Entity
 @Table(name = "Booking")
@@ -20,7 +23,7 @@ public class Booking {
 	private Date date;
 	
 	@ManyToOne
-	private Room room;
+	private Venue room;
 	
 	@ManyToOne
 	private User user;
@@ -53,11 +56,11 @@ public class Booking {
 		this.date = date;
 	}
 
-	public Room getRoom() {
+	public Venue getRoom() {
 		return room;
 	}
 
-	public void setRoom(Room room) {
+	public void setRoom(Venue room) {
 		this.room = room;
 	}
 
