@@ -23,7 +23,7 @@ public class Booking {
 	private Date date;
 	
 	@ManyToOne
-	private Venue room;
+	private Venue venue;
 	
 	@ManyToOne
 	private User user;
@@ -56,12 +56,12 @@ public class Booking {
 		this.date = date;
 	}
 
-	public Venue getRoom() {
-		return room;
+	public Venue getVenue() {
+		return venue;
 	}
 
-	public void setRoom(Venue room) {
-		this.room = room;
+	public void setVenue(Venue venue) {
+		this.venue = venue;
 	}
 
 	@Override
@@ -70,7 +70,7 @@ public class Booking {
 		int result = 1;
 		result = prime * result + ((date == null) ? 0 : date.hashCode());
 		result = prime * result + id;
-		result = prime * result + ((room == null) ? 0 : room.hashCode());
+		result = prime * result + ((venue == null) ? 0 : venue.hashCode());
 		result = prime * result + ((user == null) ? 0 : user.hashCode());
 		return result;
 	}
@@ -91,10 +91,10 @@ public class Booking {
 			return false;
 		if (id != other.id)
 			return false;
-		if (room == null) {
-			if (other.room != null)
+		if (venue == null) {
+			if (other.venue != null)
 				return false;
-		} else if (!room.equals(other.room))
+		} else if (!venue.equals(other.venue))
 			return false;
 		if (user == null) {
 			if (other.user != null)

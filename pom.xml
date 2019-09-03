@@ -97,9 +97,6 @@
 				<activatedProperties>dev</activatedProperties>
 				<environment>develop</environment>
 			</properties>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
 		</profile>
 
 		<profile>
@@ -116,7 +113,9 @@
 				<activatedProperties>local</activatedProperties>
 				<environment>local</environment>
 			</properties>
-
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
 		</profile>
 	</profiles>
 </project>
