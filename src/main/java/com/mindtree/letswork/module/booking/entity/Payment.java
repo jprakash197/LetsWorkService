@@ -1,0 +1,104 @@
+package com.mindtree.letswork.module.booking.entity;
+
+
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="payment")
+public class Payment {
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="payment_id")
+	private int paymentId;
+	
+	@Column(name="payment_mode")
+	private String paymentMode;
+	
+	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	private Card card;
+
+	public Payment() 
+	{
+		
+	}
+
+	public Payment(int paymentId, String paymentMode, Card card) {
+		super();
+		this.paymentId = paymentId;
+		this.paymentMode = paymentMode;
+		this.card = card;
+	}
+
+	public int getPaymentId() {
+		return paymentId;
+	}
+
+	public void setPaymentId(int paymentId) {
+		this.paymentId = paymentId;
+	}
+
+	public String getPaymentMode() {
+		return paymentMode;
+	}
+
+	public void setPaymentMode(String paymentMode) {
+		this.paymentMode = paymentMode;
+	}
+
+	public Card getCard() {
+		return card;
+	}
+
+	public void setCard(Card card) {
+		this.card = card;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((card == null) ? 0 : card.hashCode());
+		result = prime * result + paymentId;
+		result = prime * result + ((paymentMode == null) ? 0 : paymentMode.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Payment other = (Payment) obj;
+		if (card == null) {
+			if (other.card != null)
+				return false;
+		} else if (!card.equals(other.card))
+			return false;
+		if (paymentId != other.paymentId)
+			return false;
+		if (paymentMode == null) {
+			if (other.paymentMode != null)
+				return false;
+		} else if (!paymentMode.equals(other.paymentMode))
+			return false;
+		return true;
+	}
+	
+	
+	
+	
+	
+}
