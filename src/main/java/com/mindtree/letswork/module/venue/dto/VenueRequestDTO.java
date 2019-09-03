@@ -4,15 +4,21 @@ import java.sql.Date;
 
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 public class VenueRequestDTO {
 
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
 	@NotNull
 	private Date date;
 
 	@NotNull
+	@Min(value=0)
 	private int capacity;
 
 	@NotNull

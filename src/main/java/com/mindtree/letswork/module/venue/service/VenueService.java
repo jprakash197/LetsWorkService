@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.mindtree.letswork.module.venue.entity.Venue;
+import com.mindtree.letswork.module.venue.exception.ResourceNotFoundException;
 
 public interface VenueService {
 	
@@ -21,8 +22,9 @@ public interface VenueService {
 	 * @param capacity
 	 * @param city
 	 * @return list of venues after searching
+	 * @throws ResourceNotFoundException 
 	 */
-	public List<Venue> getFinalSearchedVenues(String type,Date date,int capacity,String city);
+	public List<Venue> getFinalSearchedVenues(String type,Date date,int capacity,String city) throws ResourceNotFoundException;
 	
 	public Set<String> getCities();
 }
