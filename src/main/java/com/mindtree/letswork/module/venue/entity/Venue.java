@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.mindtree.letswork.module.booking.entity.Booking;
+
 @Entity
 @Table(name = "VENUES")
 public class Venue {
