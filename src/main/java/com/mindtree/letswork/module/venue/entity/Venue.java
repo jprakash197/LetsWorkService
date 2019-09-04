@@ -23,19 +23,19 @@ public class Venue {
 	@Column(name = "venue_id")
 	private int venueId;
 
-	@Column
+	@Column(nullable=false)
 	private String venueName;
 
-	@Column
+	@Column(nullable=false)
 	private String city;
 
-	@Column
+	@Column(nullable=true)
 	private String address;
 
 	@Column
 	private double size;
 
-	@Column
+	@Column(nullable=false)
 	private int capacity;
 
 	@Column
@@ -44,24 +44,24 @@ public class Venue {
 	@Column
 	private int rating;
 
-	@Column
+	@Column(nullable=false)
 	private double price;
 
-	@Column
+	@Column(nullable=false)
 	private String venueType;
 
 	@OneToMany(mappedBy = "venue")
 	private Set<Booking> bookings;
 
 	@OneToMany(fetch = FetchType.EAGER)
-	private Set<Images> image;
+	private Set<Image> images;
 
 	public Venue() {
 		super();
 	}
 
 	public Venue(String venueName, String city, String address, double size, int capacity, String description,
-			int rating, double price, String venueType, Set<Booking> bookings, Set<Images> image) {
+			int rating, double price, String venueType, Set<Booking> bookings, Set<Image> image) {
 		super();
 		this.venueName = venueName;
 		this.city = city;
@@ -73,7 +73,7 @@ public class Venue {
 		this.price = price;
 		this.venueType = venueType;
 		this.bookings = bookings;
-		this.image = image;
+		this.images = image;
 	}
 
 	public int getVenueId() {
@@ -164,12 +164,12 @@ public class Venue {
 		this.bookings = bookings;
 	}
 
-	public Set<Images> getImage() {
-		return image;
+	public Set<Image> getImage() {
+		return images;
 	}
 
-	public void setImage(Set<Images> image) {
-		this.image = image;
+	public void setImage(Set<Image> image) {
+		this.images = image;
 	}
 
 	@Override
@@ -181,7 +181,7 @@ public class Venue {
 		result = prime * result + capacity;
 		result = prime * result + ((city == null) ? 0 : city.hashCode());
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
-		result = prime * result + ((image == null) ? 0 : image.hashCode());
+		result = prime * result + ((images == null) ? 0 : images.hashCode());
 		long temp;
 		temp = Double.doubleToLongBits(price);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
@@ -225,10 +225,10 @@ public class Venue {
 				return false;
 		} else if (!description.equals(other.description))
 			return false;
-		if (image == null) {
-			if (other.image != null)
+		if (images == null) {
+			if (other.images != null)
 				return false;
-		} else if (!image.equals(other.image))
+		} else if (!images.equals(other.images))
 			return false;
 		if (Double.doubleToLongBits(price) != Double.doubleToLongBits(other.price))
 			return false;
