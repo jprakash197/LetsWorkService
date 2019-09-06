@@ -26,32 +26,32 @@ public class VenueServiceImpl implements VenueService {
 	private VenueRepo venueRepo;
 
 	@Override
-	public List<Venue> getFinalSearchedVenues(String type, Date date, int capacity, String city) throws VenueException
-			 {
+	public List<Venue> getFinalSearchedVenues(String type, Date date, int capacity, String city) throws VenueException {
 		List<Venue> venues = new ArrayList<Venue>();
 		venues = venueRepo.findAll();
-		
-		//check venue type
-		if(type.equalsIgnoreCase("Meeting")||type.equalsIgnoreCase("Conference")||type.equalsIgnoreCase("Training")||type.equalsIgnoreCase("Workshop"))
-		venues = venues.stream().filter(venue -> type.equalsIgnoreCase(venue.getVenueType()))
+
+		// check venue type
+		if (type.equalsIgnoreCase("Meeting") || type.equalsIgnoreCase("Conference") || type.equalsIgnoreCase("Training")
+				|| type.equalsIgnoreCase("Workshop"))
+			venues = venues.stream().filter(venue -> type.equalsIgnoreCase(venue.getVenueType()))
 					.collect(Collectors.toList());
-		else 
+		else
 			throw new InvalidVenueTypeException("Invalid venue type");
-		
-		//check date
+
+		// check date
 		if (checkDate(date))
 			venues = venues.stream().filter(venue -> checkAvailability(venue, date)).collect(Collectors.toList());
 		else
 			throw new InvalidDateException("Invalid date");
 
-		//check if city exists in database
+		// check if city exists in database
 		if (!getCities().contains(city))
 			throw new CityNotFoundException("No venues for this city");
 		else
 			venues = venues.stream().filter(venue -> city.equalsIgnoreCase(venue.getCity()))
 					.collect(Collectors.toList());
 
-		//filter according to capacity
+		// filter according to capacity
 		venues = venues.stream().filter(venue -> venue.getCapacity() >= capacity).collect(Collectors.toList());
 
 		return venues;
@@ -82,5 +82,10 @@ public class VenueServiceImpl implements VenueService {
 		Set<String> cities = new HashSet<String>();
 		venueRepo.findAll().forEach(venue -> cities.add(venue.getCity()));
 		return cities;
+	}
+
+	@Override
+	public Venue getVenueDetails(int id) {
+		return (venueRepo.findById(id).get());
 	}
 }

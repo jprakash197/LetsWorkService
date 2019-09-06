@@ -1,4 +1,4 @@
-package com.mindtree.letswork.module.venue.exception;
+ package com.mindtree.letswork.module.venue.exception;
 
 import java.util.Date;
 

@@ -1,33 +1,39 @@
 package com.mindtree.letswork.module.venue.dto;
 
+import java.util.List;
+
 public class VenueDTO {
 
 	private int venueId;
 
 	private String venueName;
-	
+
 	private String city;
-	
+
 	private String address;
-	
+
 	private double size;
-	
+
 	private int capacity;
-	
+
 	private String description;
-	
+
 	private int rating;
-	
+
 	private double price;
-	
+
 	private String venueType;
-	
+
+	private List<String> feature;
+
+	private List<String> image;
+
 	public VenueDTO() {
 		super();
 	}
 
 	public VenueDTO(int venueId, String venueName, String city, String address, double size, int capacity,
-			String description, int rating, double price, String venueType) {
+			String description, int rating, double price, String venueType, List<String> feature, List<String> image) {
 		super();
 		this.venueId = venueId;
 		this.venueName = venueName;
@@ -39,6 +45,8 @@ public class VenueDTO {
 		this.rating = rating;
 		this.price = price;
 		this.venueType = venueType;
+		this.feature = feature;
+		this.image = image;
 	}
 
 	public int getVenueId() {
@@ -119,6 +127,22 @@ public class VenueDTO {
 
 	public void setVenueType(String venueType) {
 		this.venueType = venueType;
-	}	
+	}
+
+	public List<String> getFeature() {
+		return feature;
+	}
+
+	public void setFeature(List<String> feature) {
+		this.feature = feature;
+	}
+
+	public List<String> getImage() {
+		return image;
+	}
+
+	public void setImage(List<String> image) {
+		this.image = image;
+	}
 
 }

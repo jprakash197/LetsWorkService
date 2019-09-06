@@ -112,6 +112,7 @@
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
+
 		</profile>
 
 		<profile>
@@ -128,6 +129,7 @@
 				<activatedProperties>local</activatedProperties>
 				<environment>local</environment>
 			</properties>
+
 		</profile>
 	</profiles>
 </project>

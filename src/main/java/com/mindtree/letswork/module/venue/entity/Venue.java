@@ -3,15 +3,21 @@ package com.mindtree.letswork.module.venue.entity;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.mindtree.letswork.constant.VenueFeatures;
 import com.mindtree.letswork.module.booking.entity.Booking;
 
 @Entity
@@ -23,19 +29,19 @@ public class Venue {
 	@Column(name = "venue_id")
 	private int venueId;
 
-	@Column(nullable=false)
+	@Column(nullable = false)
 	private String venueName;
 
-	@Column(nullable=false)
+	@Column(nullable = false)
 	private String city;
 
-	@Column(nullable=true)
+	@Column(nullable = true)
 	private String address;
 
 	@Column
 	private double size;
 
-	@Column(nullable=false)
+	@Column(nullable = false)
 	private int capacity;
 
 	@Column
@@ -44,10 +50,10 @@ public class Venue {
 	@Column
 	private int rating;
 
-	@Column(nullable=false)
+	@Column(nullable = false)
 	private double price;
 
-	@Column(nullable=false)
+	@Column(nullable = false)
 	private String venueType;
 
 	@OneToMany(mappedBy = "venue")
@@ -56,12 +62,19 @@ public class Venue {
 	@OneToMany(fetch = FetchType.EAGER)
 	private Set<Image> images;
 
+	@ElementCollection
+	@CollectionTable(name = "VENUE_FEATURES", joinColumns = @JoinColumn(name = "venue_id"))
+	@Column(name = "feature", nullable = false)
+	@Enumerated(EnumType.STRING)
+	private Set<VenueFeatures> feature;
+
 	public Venue() {
 		super();
 	}
 
 	public Venue(String venueName, String city, String address, double size, int capacity, String description,
-			int rating, double price, String venueType, Set<Booking> bookings, Set<Image> image) {
+			int rating, double price, String venueType, Set<Booking> bookings, Set<Image> images,
+			Set<VenueFeatures> feature) {
 		super();
 		this.venueName = venueName;
 		this.city = city;
@@ -73,7 +86,8 @@ public class Venue {
 		this.price = price;
 		this.venueType = venueType;
 		this.bookings = bookings;
-		this.images = image;
+		this.images = images;
+		this.feature = feature;
 	}
 
 	public int getVenueId() {
@@ -164,12 +178,20 @@ public class Venue {
 		this.bookings = bookings;
 	}
 
-	public Set<Image> getImage() {
+	public Set<Image> getImages() {
 		return images;
 	}
 
-	public void setImage(Set<Image> image) {
-		this.images = image;
+	public void setImages(Set<Image> images) {
+		this.images = images;
+	}
+
+	public Set<VenueFeatures> getFeature() {
+		return feature;
+	}
+
+	public void setFeature(Set<VenueFeatures> feature) {
+		this.feature = feature;
 	}
 
 	@Override
@@ -181,6 +203,7 @@ public class Venue {
 		result = prime * result + capacity;
 		result = prime * result + ((city == null) ? 0 : city.hashCode());
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
+		result = prime * result + ((feature == null) ? 0 : feature.hashCode());
 		result = prime * result + ((images == null) ? 0 : images.hashCode());
 		long temp;
 		temp = Double.doubleToLongBits(price);
@@ -224,6 +247,11 @@ public class Venue {
 			if (other.description != null)
 				return false;
 		} else if (!description.equals(other.description))
+			return false;
+		if (feature == null) {
+			if (other.feature != null)
+				return false;
+		} else if (!feature.equals(other.feature))
 			return false;
 		if (images == null) {
 			if (other.images != null)

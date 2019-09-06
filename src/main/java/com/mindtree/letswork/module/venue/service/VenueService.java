@@ -31,4 +31,10 @@ public interface VenueService {
 	 * @return list of cities
 	 */
 	public Set<String> getCities();
+	
+	/**
+	 * @param id
+	 * @return
+	 */
+	public Venue getVenueDetails(int id);
 }
