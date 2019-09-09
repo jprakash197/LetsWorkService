@@ -44,11 +44,11 @@ public class VenueController {
 						details.getCity())
 				.forEach(venue -> venuesDto.add((VenueDTO) dtoUtil.convert(venue, VenueDTO.class)));
 
-		if (venuesDto.size() != 0)
+//		if (venuesDto.size() != 0)
 			return ResponseEntity.ok().body(venuesDto);
 
-		else
-			return ResponseEntity.ok().body("No venues available currently");
+//		else
+//			return ResponseEntity.ok().body("No venues available currently");
 
 	}
 

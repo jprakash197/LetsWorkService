@@ -18,7 +18,7 @@ public class VenueRequestDTO {
 	private Date date;
 
 	@NotNull
-	@Min(value=0)
+	@Min(value=1)
 	private int capacity;
 
 	@NotNull
