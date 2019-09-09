@@ -35,7 +35,7 @@ public class User {
             @org.hibernate.annotations.Parameter(name = "allocationSize", value = "20"),
     })
 	@Column(name = "ref_code", unique = true, nullable = false)
-	private long refCode;
+	private long referralCode;
 
 	@Column(name = "username")
 	private String userName;
@@ -64,12 +64,12 @@ public class User {
 	@OneToOne(mappedBy = "user")
 	private Payment paymentInfo;
 
-	public long getRefCode() {
-		return refCode;
+	public long getReferralCode() {
+		return referralCode;
 	}
 
-	public void setRefCode(long refCode) {
-		this.refCode = refCode;
+	public void setReferralCode(long referralCode) {
+		this.referralCode = referralCode;
 	}
 
 	public String getUserName() {
@@ -153,7 +153,7 @@ public class User {
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
 		result = prime * result + ((paymentInfo == null) ? 0 : paymentInfo.hashCode());
 		result = prime * result + ((realName == null) ? 0 : realName.hashCode());
-		result = prime * result + (int) (refCode ^ (refCode >>> 32));
+		result = prime * result + (int) (referralCode ^ (referralCode >>> 32));
 		result = prime * result + ((refferedCode == null) ? 0 : refferedCode.hashCode());
 		result = prime * result + ((role == null) ? 0 : role.hashCode());
 		result = prime * result + ((token == null) ? 0 : token.hashCode());
@@ -195,7 +195,7 @@ public class User {
 				return false;
 		} else if (!realName.equals(other.realName))
 			return false;
-		if (refCode != other.refCode)
+		if (referralCode != other.referralCode)
 			return false;
 		if (refferedCode == null) {
 			if (other.refferedCode != null)
