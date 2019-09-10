@@ -1,5 +1,6 @@
 package com.mindtree.letswork.module.authentication.entity;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -14,6 +15,9 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -26,19 +30,17 @@ import com.mindtree.letswork.module.booking.entity.Payment;
 		generator = ObjectIdGenerators.IntSequenceGenerator.class, 
 		property="id"
 		) 
-public class User {
-	
+public class User implements UserDetails {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gen")
-    @GenericGenerator(name = "gen", strategy = "sequence", parameters = {
-            @org.hibernate.annotations.Parameter(name = "sequenceName", value = "sequence"),
-            @org.hibernate.annotations.Parameter(name = "allocationSize", value = "20"),
-    })
-	@Column(name = "ref_code", unique = true, nullable = false)
-	private long referralCode;
+    @GenericGenerator(name = "gen", strategy = "com.mindtree.letswork.constant.SequenceGenerator",
+    parameters = @Parameter(name="prefix", value="ref"))
+	@Column(name = "referralCode", unique = true, nullable = false)
+	private String referralCode;
 
 	@Column(name = "username")
-	private String userName;
+	private String username;
 	
 	@Column(name = "realname")
 	private String realName;
@@ -49,8 +51,8 @@ public class User {
 	@Column(name = "password")
 	private String password;
 	
-	@Column(name = "reffered")
-	private String refferedCode;
+	@Column(name = "referredCode")
+	private String referredCode;
 	
 	@Column(name = "role")
 	private String role;
@@ -64,20 +66,20 @@ public class User {
 	@OneToOne(mappedBy = "user")
 	private Payment paymentInfo;
 
-	public long getReferralCode() {
+	public String getReferralCode() {
 		return referralCode;
 	}
 
-	public void setReferralCode(long referralCode) {
-		this.referralCode = referralCode;
+	public void setReferralCode(String refCode) {
+		this.referralCode = refCode;
 	}
 
 	public String getUserName() {
-		return userName;
+		return username;
 	}
 
 	public void setUserName(String userName) {
-		this.userName = userName;
+		this.username = userName;
 	}
 
 	public String getRealName() {
@@ -104,12 +106,12 @@ public class User {
 		this.password = password;
 	}
 
-	public String getRefferedCode() {
-		return refferedCode;
+	public String getReferredCode() {
+		return referredCode;
 	}
 
-	public void setRefferedCode(String refferedCode) {
-		this.refferedCode = refferedCode;
+	public void setReferredCode(String refferedCode) {
+		this.referredCode = refferedCode;
 	}
 
 	public String getRole() {
@@ -142,23 +144,6 @@ public class User {
 
 	public void setPaymentInfo(Payment paymentInfo) {
 		this.paymentInfo = paymentInfo;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((bookings == null) ? 0 : bookings.hashCode());
-		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result + ((password == null) ? 0 : password.hashCode());
-		result = prime * result + ((paymentInfo == null) ? 0 : paymentInfo.hashCode());
-		result = prime * result + ((realName == null) ? 0 : realName.hashCode());
-		result = prime * result + (int) (referralCode ^ (referralCode >>> 32));
-		result = prime * result + ((refferedCode == null) ? 0 : refferedCode.hashCode());
-		result = prime * result + ((role == null) ? 0 : role.hashCode());
-		result = prime * result + ((token == null) ? 0 : token.hashCode());
-		result = prime * result + ((userName == null) ? 0 : userName.hashCode());
-		return result;
 	}
 
 	@Override
@@ -197,10 +182,10 @@ public class User {
 			return false;
 		if (referralCode != other.referralCode)
 			return false;
-		if (refferedCode == null) {
-			if (other.refferedCode != null)
+		if (referredCode == null) {
+			if (other.referredCode != null)
 				return false;
-		} else if (!refferedCode.equals(other.refferedCode))
+		} else if (!referredCode.equals(other.referredCode))
 			return false;
 		if (role == null) {
 			if (other.role != null)
@@ -212,12 +197,47 @@ public class User {
 				return false;
 		} else if (!token.equals(other.token))
 			return false;
-		if (userName == null) {
-			if (other.userName != null)
+		if (username == null) {
+			if (other.username != null)
 				return false;
-		} else if (!userName.equals(other.userName))
+		} else if (!username.equals(other.username))
 			return false;
 		return true;
-	} 
+	}
 
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getUsername() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }
