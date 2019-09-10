@@ -60,8 +60,11 @@ public class VenueServiceImpl implements VenueService {
 	private boolean checkDate(Date date) throws CityNotFoundException {
 		java.util.Date utilDate = new java.util.Date(date.getTime());
 		java.util.Date currentDate = new java.util.Date();
-		if (currentDate.compareTo(utilDate) > 0)
-			throw new CityNotFoundException("Cannot book for this date");
+		if (currentDate.getDate()>utilDate.getDate())
+		{
+			System.out.println(""+currentDate+utilDate);
+			return false;
+		}
 		return true;
 	}
 
