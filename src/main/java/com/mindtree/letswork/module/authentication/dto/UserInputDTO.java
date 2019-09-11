@@ -8,6 +8,7 @@ public class UserInputDTO {
 
 	@NotNull(message = "Username cannot be null")
 	private String username;
+	@NotNull(message = "Name cannot be null")
 	private String realName;
 	@NotNull(message = "Email cannot be null")
 	@Email(message = "Email should be valid")

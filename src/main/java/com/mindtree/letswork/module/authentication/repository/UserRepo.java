@@ -20,6 +20,7 @@ public interface UserRepo extends JpaRepository<User, Integer> {
 	
 	@Query("from User where referral_code=?1")
 	Optional<User> findByStringID(String referralCode);
+	
 	@Transactional
 	@Modifying
 	@Query("UPDATE User SET token=?1 WHERE referral_code =?2")

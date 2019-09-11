@@ -13,6 +13,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +24,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mindtree.letswork.module.authentication.dto.UserInputDTO;
 import com.mindtree.letswork.module.authentication.dto.UserOutputDTO;
 import com.mindtree.letswork.module.authentication.entity.User;
+import com.mindtree.letswork.module.authentication.exception.IncorrectPasswordException;
+import com.mindtree.letswork.module.authentication.exception.InvalidInputException;
+import com.mindtree.letswork.module.authentication.exception.InvalidReferralCodeException;
 import com.mindtree.letswork.module.authentication.service.AuthService;
 import com.mindtree.letswork.module.venue.util.DTOUtil;
 import com.mindtree.letswork.security.JwtCreator;
@@ -44,8 +48,8 @@ public class AuthController {
 	DTOUtil dtoUtil;
 
 	@GetMapping("/login/{username}&{password}")
-	public UserOutputDTO login(@Valid @PathVariable String username, @Valid @PathVariable String password)
-			throws Exception {
+	public UserOutputDTO login(@Valid @PathVariable String username, @Valid @PathVariable String password) 
+			throws IncorrectPasswordException, UsernameNotFoundException {
 		User user = (User) detailsService.loadUserByUsername(username);
 		user = service.authenticatePassword(password, user);
 		String token = creator.generateJwtToken(user);
@@ -57,9 +61,10 @@ public class AuthController {
 	}
 
 	@PostMapping("/signup")
-	public UserOutputDTO signup(@Valid @RequestBody UserInputDTO userDTO) throws IOException {
-		User user = (User) dtoUtil.convert(userDTO, User.class);
-		String password = user.getPassword(); 
+	public UserOutputDTO signup(@Valid @RequestBody UserInputDTO userDTO)
+			throws IOException, InvalidReferralCodeException, InvalidInputException {
+		User user = mapOntoUser(userDTO);
+		String password = user.getPassword();
 		user = service.signup(user);
 		// updateExcel(user, password);
 		UserOutputDTO userOutput = new UserOutputDTO();
@@ -67,13 +72,23 @@ public class AuthController {
 		userOutput.setRole(user.getRole());
 		return userOutput;
 	}
+	
+	public User mapOntoUser(UserInputDTO userDTO) {
+		User user = new User(); 
+		user.setUserName(userDTO.getUsername());
+		user.setRealName(userDTO.getRealName());
+		user.setEmail(userDTO.getEmail());
+		user.setPassword(userDTO.getPassword());
+		user.setReferredCode(userDTO.getReferredCode());
+		return user;
+	}
 
 	private void updateExcel(User user, String password) throws IOException {
 
 		Workbook wb = new HSSFWorkbook();
 		OutputStream fileOut = new FileOutputStream("D:\\SpringbootStuff\\apache\\Output.csv");
 		Sheet sheet = wb.getSheet("sheet");
-		
+
 		int rownum = sheet.getLastRowNum();
 		Row row = sheet.createRow(rownum++);
 		Cell cell1 = row.createCell(0);
@@ -92,7 +107,7 @@ public class AuthController {
 		cell7.setCellValue((String) user.getRole());
 		Cell cell8 = row.createCell(7);
 		cell8.setCellValue((String) user.getToken());
-		
+
 		wb.write(fileOut);
 		fileOut.close();
 

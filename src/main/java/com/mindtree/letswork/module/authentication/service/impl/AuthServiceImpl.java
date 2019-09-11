@@ -7,6 +7,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.mindtree.letswork.module.authentication.entity.User;
+import com.mindtree.letswork.module.authentication.exception.IncorrectPasswordException;
+import com.mindtree.letswork.module.authentication.exception.InvalidInputException;
+import com.mindtree.letswork.module.authentication.exception.InvalidReferralCodeException;
 import com.mindtree.letswork.module.authentication.repository.UserRepo;
 import com.mindtree.letswork.module.authentication.service.AuthService;
 import com.mindtree.letswork.security.JwtCreator;
@@ -29,30 +32,37 @@ public class AuthServiceImpl implements AuthService {
 	}
 
 	@Override
-	public User authenticatePassword(String password, User user) throws Exception {
+	public User authenticatePassword(String password, User user) throws IncorrectPasswordException {
 		if (!passwordEncoder.matches(password, user.getPassword())) {
-			throw new Exception("Password mismatch.");
+			throw new IncorrectPasswordException("Password mismatch.");
 		} else {
 			return user;
 		}
 	}
 
 	@Override
-	public User signup(User user) {
-		String token = creator.generateJwtToken(user);
-		user.setToken(token);
-		user.setRole("USER");
-		user.setPassword(passwordEncoder.encode(user.getPassword()));
-		return repo.save(user);
+	public User signup(User user) throws InvalidReferralCodeException, InvalidInputException {
+		if (user.getReferredCode() != null) {
+			checkValidityOfRefCode(user.getReferredCode());
+		}
+		if (isUsernameAvailable(user.getUserName())) {
+			String token = creator.generateJwtToken(user);
+			user.setToken(token);
+			user.setRole("USER");
+			user.setPassword(passwordEncoder.encode(user.getPassword()));
+			return repo.save(user);
+		} else {
+			throw new InvalidInputException("Invalid Username. Username already taken. Sign Up could not be completed");
+		}
 	}
 
 	@Override
-	public boolean checkValidityOfRefCode(String referralCode) {
+	public boolean checkValidityOfRefCode(String referralCode) throws InvalidReferralCodeException {
 		Optional<User> user = repo.findByStringID(referralCode);
 		if (user.isPresent()) {
 			return true;
 		} else {
-			return false;
+			throw new InvalidReferralCodeException("Invalid Referral Code. Sign Up could not be completed");
 		}
 	}
 

@@ -2,9 +2,6 @@ package com.mindtree.letswork.exception;
 
 public class LetsWorkException extends Exception {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	public LetsWorkException() {
