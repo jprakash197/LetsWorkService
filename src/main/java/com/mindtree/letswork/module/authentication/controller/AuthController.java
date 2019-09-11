@@ -1,6 +1,5 @@
 package com.mindtree.letswork.module.authentication.controller;
 
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -62,7 +61,7 @@ public class AuthController {
 		User user = (User) dtoUtil.convert(userDTO, User.class);
 		String password = user.getPassword(); 
 		user = service.signup(user);
-		updateExcel(user, password);
+		// updateExcel(user, password);
 		UserOutputDTO userOutput = new UserOutputDTO();
 		userOutput.setToken(user.getToken());
 		userOutput.setRole(user.getRole());

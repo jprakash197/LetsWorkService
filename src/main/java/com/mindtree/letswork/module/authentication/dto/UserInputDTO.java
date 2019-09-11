@@ -8,7 +8,6 @@ public class UserInputDTO {
 
 	@NotNull(message = "Username cannot be null")
 	private String username;
-	@NotNull(message = "Name cannot be null")
 	private String realName;
 	@NotNull(message = "Email cannot be null")
 	@Email(message = "Email should be valid")
@@ -17,7 +16,7 @@ public class UserInputDTO {
 	@Pattern(regexp = "(?!^[0-9]*$)(?!^[a-zA-Z]*$)^([a-zA-Z0-9]{9,15})", 
 	message = "Password must be a mix of lowercase letter, uppercase letter, and numbers and must be 9 - 15 characters.")
 	private String password;
-	@Pattern(regexp = "ref[0-9]*", message="Referral code must start with 'ref'.")
+	@Pattern(regexp = "ref[a-zA-Z0-9]$", message="Referral code must start with 'ref'.")
 	private String referredCode;
 
 	public String getUsername() {

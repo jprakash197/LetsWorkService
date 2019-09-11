@@ -44,9 +44,10 @@ public class LetsWorkSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
-		http.csrf().disable().exceptionHandling().and().authorizeRequests().antMatchers("/").permitAll()
-				.antMatchers("/login/*").permitAll().antMatchers("/signup").permitAll().antMatchers("/profile")
-				.hasRole("USER").antMatchers("/admin").hasRole("ADMIN").anyRequest().authenticated();
+		http.csrf().disable().exceptionHandling().and().authorizeRequests().antMatchers("/**").permitAll()
+				.antMatchers("/login/**").permitAll().and().authorizeRequests().antMatchers("/getUser*").hasRole("USER")
+				.antMatchers("addUser").hasRole("USER").antMatchers("/admin*").hasRole("ADMIN").anyRequest()
+				.authenticated();
 	}
 
 	@Bean
@@ -54,12 +55,11 @@ public class LetsWorkSecurityConfig extends WebSecurityConfigurerAdapter {
 		return new DefaultHttpFirewall();
 	}
 
-/*	@Autowired
-	private JwtAuthEntryPoint unauthorizedHandler;
-
-	@Bean
-	public JwtAuthTokenFilter authenticationJwtTokenFilter() {
-		return new JwtAuthTokenFilter();
-	}*/
+	/*
+	 * @Autowired private JwtAuthEntryPoint unauthorizedHandler;
+	 * 
+	 * @Bean public JwtAuthTokenFilter authenticationJwtTokenFilter() { return new
+	 * JwtAuthTokenFilter(); }
+	 */
 
 }

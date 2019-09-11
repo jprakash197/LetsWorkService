@@ -41,6 +41,7 @@ public class AuthServiceImpl implements AuthService {
 	public User signup(User user) {
 		String token = creator.generateJwtToken(user);
 		user.setToken(token);
+		user.setRole("USER");
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		return repo.save(user);
 	}
@@ -67,7 +68,8 @@ public class AuthServiceImpl implements AuthService {
 
 	@Override
 	public boolean updateToken(String token, User user) {
-		return repo.updateToken(token, user.getReferralCode());
+		repo.updateToken(token, user.getReferralCode());
+		return true;
 	}
 
 }

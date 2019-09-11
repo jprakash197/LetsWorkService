@@ -32,6 +32,8 @@ import com.mindtree.letswork.module.booking.entity.Payment;
 		) 
 public class User implements UserDetails {
 
+	private static final long serialVersionUID = 8350077531921411529L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gen")
     @GenericGenerator(name = "gen", strategy = "com.mindtree.letswork.constant.SequenceGenerator",
@@ -42,7 +44,7 @@ public class User implements UserDetails {
 	@Column(name = "username")
 	private String username;
 	
-	@Column(name = "realname")
+	@Column(name = "realName")
 	private String realName;
 	
 	@Column(name = "email")
