@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mindtree.letswork.module.booking.entity.Booking;
+import com.mindtree.letswork.module.venue.dto.VenueDTO;
 import com.mindtree.letswork.module.venue.entity.Venue;
 import com.mindtree.letswork.module.venue.exception.CityNotFoundException;
 import com.mindtree.letswork.module.venue.exception.InvalidDateException;
@@ -90,5 +91,9 @@ public class VenueServiceImpl implements VenueService {
 	@Override
 	public Venue getVenueDetails(int id) {
 		return (venueRepo.findById(id).get());
+	}
+
+	public List<Venue> getAllVenues() {
+		return this.venueRepo.findAll();
 	}
 }

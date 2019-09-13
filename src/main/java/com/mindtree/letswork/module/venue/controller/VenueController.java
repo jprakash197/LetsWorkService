@@ -80,4 +80,39 @@ public class VenueController {
 
 		return venueDto;
 	}
+	
+	@GetMapping("/venues")
+	public List<VenueDTO> getAllVenues() throws VenueException {
+		List<VenueDTO> venues = new ArrayList<VenueDTO>();
+		
+		StringBuilder exceptionMessage = new StringBuilder(); 
+		
+		this.venueService.getAllVenues().forEach(venue -> {
+			List<String> photo = new ArrayList<>();
+			Set<Image> image = venue.getImages();
+			VenueDTO venueDto = null;
+			try {
+				for (Image img : image) {
+					byte[] encodeBase64 = Base64Utils.encode(img.getImage());
+					String base64Encoded;
+
+					base64Encoded = new String(encodeBase64, "UTF-8");
+					String file = "data:image/jpg;base64," + base64Encoded;
+					photo.add(file);
+				}
+				venueDto = (VenueDTO) dtoUtil.convert(venue, VenueDTO.class);
+				venueDto.setImage(photo);
+			} catch (UnsupportedEncodingException e) {
+				exceptionMessage.append(e.getMessage());
+			}
+			
+			venues.add(venueDto);
+		});
+		
+		if (exceptionMessage.length() != 0) {
+			throw new VenueException(exceptionMessage.toString());
+		}
+
+		return venues;
+	}
 }
