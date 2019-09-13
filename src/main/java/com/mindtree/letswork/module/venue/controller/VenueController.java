@@ -83,7 +83,7 @@ public class VenueController {
 	
 	@GetMapping("/venues")
 	public List<VenueDTO> getAllVenues() throws VenueException {
-		List<VenueDTO> venues = new ArrayList<VenueDTO>();
+		List<VenueDTO> venuesDto = new ArrayList<VenueDTO>();
 		
 		StringBuilder exceptionMessage = new StringBuilder(); 
 		
@@ -106,13 +106,13 @@ public class VenueController {
 				exceptionMessage.append(e.getMessage());
 			}
 			
-			venues.add(venueDto);
+			venuesDto.add(venueDto);
 		});
 		
 		if (exceptionMessage.length() != 0) {
 			throw new VenueException(exceptionMessage.toString());
 		}
 
-		return venues;
+		return venuesDto;
 	}
 }
