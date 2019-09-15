@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,7 +22,6 @@ import com.mindtree.letswork.module.venue.dto.VenueDTO;
 import com.mindtree.letswork.module.venue.dto.VenueRequestDTO;
 import com.mindtree.letswork.module.venue.entity.Image;
 import com.mindtree.letswork.module.venue.entity.Venue;
-import com.mindtree.letswork.module.venue.exception.CityNotFoundException;
 import com.mindtree.letswork.module.venue.exception.VenueException;
 import com.mindtree.letswork.module.venue.service.impl.VenueServiceImpl;
 import com.mindtree.letswork.module.venue.util.DTOUtil;
@@ -50,6 +50,11 @@ public class VenueController {
 		else
 			return ResponseEntity.ok().body("No venues available currently");
 
+	}
+	
+	@PutMapping("/venues")
+	public ResponseEntity<?> updateVenue(@Valid @RequestBody VenueDTO venue) throws VenueException {
+		this.venueService.updateVenue(venue);
 	}
 
 	@GetMapping("/cities")
