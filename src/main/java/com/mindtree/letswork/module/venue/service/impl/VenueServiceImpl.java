@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -112,5 +113,14 @@ public class VenueServiceImpl implements VenueService {
 		} else {
 			throw new VenueException("Venue id: " + venue.getVenueId() + " is invalid");
 		}
+	}
+
+	public boolean deleteVenue(int venueId) {
+		try {
+			this.venueRepo.deleteById(venueId);
+		} catch (IllegalArgumentException e) {
+			throw new ServiceException("Service operation \'delete\' failed: venueId: " + venueId);
+		}
+		return true;
 	}
 }
