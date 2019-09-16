@@ -64,8 +64,8 @@ public class VenueController {
 		}
 	}
 	
-	@DeleteMapping("/venues")
-	public ResponseEntity<?> deleteVenue(@Valid @PathVariable int venueId) throws VenueException {
+	@DeleteMapping("/venues/{venueId}")
+	public ResponseEntity<?> deleteVenue(@PathVariable int venueId) throws VenueException {
 		boolean success = this.venueService.deleteVenue(venueId);
 		
 		if (success) {
