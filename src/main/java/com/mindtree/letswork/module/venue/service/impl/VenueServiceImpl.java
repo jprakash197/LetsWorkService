@@ -100,11 +100,15 @@ public class VenueServiceImpl implements VenueService {
 		return this.venueRepo.findAll();
 	}
 
-	public boolean updateVenue(@Valid VenueDTO venue) throws VenueException {
+	public boolean updateVenue(Venue venue) throws VenueException {
 		Optional<Venue> v = this.venueRepo.findById(venue.getVenueId());
 		if (v.isPresent()) {
-			
-			return true;
+			v = Optional.of(this.venueRepo.save(venue));
+			if (v.isPresent()) {
+				return true;
+			} else {
+				throw new VenueException("Venue id: " + venue.getVenueId() + " could not get updated");
+			}
 		} else {
 			throw new VenueException("Venue id: " + venue.getVenueId() + " is invalid");
 		}
