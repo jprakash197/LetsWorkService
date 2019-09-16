@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.Base64Utils;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -60,6 +61,17 @@ public class VenueController {
 			return ResponseEntity.ok().body("Venue id: " + venue.getVenueId() + " updated");
 		} else {
 			return ResponseEntity.ok().body("Venue id: " + venue.getVenueId() + " failed to update");
+		}
+	}
+	
+	@DeleteMapping("/venues")
+	public ResponseEntity<?> deleteVenue(@Valid @PathVariable int venueId) throws VenueException {
+		boolean success = this.venueService.deleteVenue(venueId);
+		
+		if (success) {
+			return ResponseEntity.ok().body("Venue id: " + venueId + " deleted");
+		} else {
+			return ResponseEntity.ok().body("Venue id: " + venueId + " was not deleted");
 		}
 	}
 
