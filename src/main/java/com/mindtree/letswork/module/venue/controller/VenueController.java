@@ -54,7 +54,13 @@ public class VenueController {
 	
 	@PutMapping("/venues")
 	public ResponseEntity<?> updateVenue(@Valid @RequestBody VenueDTO venue) throws VenueException {
-		this.venueService.updateVenue(venue);
+		boolean success =this.venueService.updateVenue(venue);
+		
+		if (success) {
+			return ResponseEntity.ok().body("Venue id: " + venue.getVenueId() + " updated");
+		} else {
+			return ResponseEntity.ok().body("Venue id: " + venue.getVenueId() + " failed to update");
+		}
 	}
 
 	@GetMapping("/cities")
