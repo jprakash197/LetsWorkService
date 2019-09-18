@@ -13,8 +13,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.firewall.DefaultHttpFirewall;
-import org.springframework.security.web.firewall.HttpFirewall;
 
 
 
@@ -52,6 +50,8 @@ public class LetsWorkSecurityConfig extends WebSecurityConfigurerAdapter {
 		.and().authorizeRequests().antMatchers("/getUser*").hasRole("USER")
 		.antMatchers("addUser").hasRole("USER").antMatchers("/admin*").hasRole("ADMIN")
 		.anyRequest().authenticated().and().oauth2Login();
+		
+		
 	}
 
 //	@Bean

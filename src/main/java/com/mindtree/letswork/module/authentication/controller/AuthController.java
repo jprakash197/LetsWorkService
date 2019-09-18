@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.mindtree.letswork.module.authentication.dto.UserInputDTO;
 import com.mindtree.letswork.module.authentication.dto.UserOutputDTO;
@@ -118,8 +120,17 @@ public class AuthController {
 
 	}
 	
-	/*public void authentification(String username, String password) {
-		auth.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-	}
-*/
+//	public void authentification(String username, String password) {
+//		auth.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+//	}
+	
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/**").allowedOrigins("*");
+            }
+        };
+    }
+
 }
