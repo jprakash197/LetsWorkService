@@ -12,11 +12,8 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -50,8 +47,8 @@ public class AuthController {
 	@Autowired
 	DTOUtil dtoUtil;
 	
-	@Autowired
-	AuthenticationManager auth; 
+//	@Autowired
+//	AuthenticationManager auth; 
 
 	@GetMapping("/login/{username}&{password}")
 	public UserOutputDTO login(@Valid @PathVariable String username, @Valid @PathVariable String password) 
