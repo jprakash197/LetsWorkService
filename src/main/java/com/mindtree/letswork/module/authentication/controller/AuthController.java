@@ -12,8 +12,11 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,7 +35,7 @@ import com.mindtree.letswork.module.venue.util.DTOUtil;
 import com.mindtree.letswork.security.JwtCreator;
 
 @RestController
-@CrossOrigin("http://localhost:4200")
+@CrossOrigin
 public class AuthController {
 
 	@Autowired
@@ -46,14 +49,19 @@ public class AuthController {
 
 	@Autowired
 	DTOUtil dtoUtil;
+	
+	@Autowired
+	AuthenticationManager auth; 
 
 	@GetMapping("/login/{username}&{password}")
 	public UserOutputDTO login(@Valid @PathVariable String username, @Valid @PathVariable String password) 
 			throws IncorrectPasswordException, UsernameNotFoundException {
+		
 		User user = (User) detailsService.loadUserByUsername(username);
 		user = service.authenticatePassword(password, user);
 		String token = creator.generateJwtToken(user);
 		service.updateToken(token, user);
+		
 		UserOutputDTO userOutput = new UserOutputDTO();
 		userOutput.setToken(token);
 		userOutput.setRole(user.getRole());
@@ -112,5 +120,9 @@ public class AuthController {
 		fileOut.close();
 
 	}
-
+	
+	/*public void authentification(String username, String password) {
+		auth.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+	}
+*/
 }
