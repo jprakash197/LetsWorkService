@@ -63,7 +63,7 @@ public class AuthExceptionHandler extends ResponseEntityExceptionHandler {
 	public ResponseEntity<?> globalExceptionHandler(InvalidReferralCodeException ex, WebRequest request) {
 		CustomAuthException errorDetails = new CustomAuthException(ex.getMessage(), new Date(),
 				request.getDescription(false));
-		return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
 	}
 
 	@Override

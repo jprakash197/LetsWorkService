@@ -17,7 +17,6 @@ public class UserInputDTO {
 	@Pattern(regexp = "(?!^[0-9]*$)(?!^[a-zA-Z]*$)^([a-zA-Z0-9]{9,15})", 
 	message = "Password must be a mix of lowercase letter, uppercase letter, and numbers and must be 9 - 15 characters.")
 	private String password;
-	@Pattern(regexp = "ref[a-zA-Z0-9]$", message="Referral code must start with 'ref'.")
 	private String referredCode;
 
 	public String getUsername() {

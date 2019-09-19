@@ -86,7 +86,9 @@ public class AuthController {
 		user.setRealName(userDTO.getRealName());
 		user.setEmail(userDTO.getEmail());
 		user.setPassword(userDTO.getPassword());
+		System.out.println(userDTO.getReferredCode());
 		user.setReferredCode(userDTO.getReferredCode());
+		System.out.println(user.getReferredCode());
 		return user;
 	}
 
