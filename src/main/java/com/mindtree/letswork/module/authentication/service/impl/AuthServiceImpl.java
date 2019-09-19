@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.mindtree.letswork.module.authentication.entity.User;
 import com.mindtree.letswork.module.authentication.exception.IncorrectPasswordException;
 import com.mindtree.letswork.module.authentication.exception.InvalidInputException;
+import com.mindtree.letswork.module.authentication.exception.InvalidJWTToken;
 import com.mindtree.letswork.module.authentication.exception.InvalidReferralCodeException;
 import com.mindtree.letswork.module.authentication.repository.UserRepo;
 import com.mindtree.letswork.module.authentication.service.AuthService;
@@ -64,7 +65,7 @@ public class AuthServiceImpl implements AuthService {
 		} else {
 			throw new InvalidReferralCodeException("Invalid Referral Code. Sign Up could not be completed");
 		}
-	}
+	} 
 
 	@Override
 	public boolean isUsernameAvailable(String username) {
@@ -77,9 +78,13 @@ public class AuthServiceImpl implements AuthService {
 	}
 
 	@Override
-	public boolean updateToken(String token, User user) {
-		repo.updateToken(token, user.getReferralCode());
-		return true;
+	public boolean updateToken(String token, User user) throws InvalidJWTToken {
+		int rows = repo.updateToken(token, user.getReferralCode());
+		if (rows != 0) {
+			return true;
+		} else {
+			throw new InvalidJWTToken ("Server Error: Unable to save Jason Web Token.");
+		}
 	}
 
 }

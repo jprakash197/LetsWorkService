@@ -28,6 +28,7 @@ import com.mindtree.letswork.module.authentication.dto.UserOutputDTO;
 import com.mindtree.letswork.module.authentication.entity.User;
 import com.mindtree.letswork.module.authentication.exception.IncorrectPasswordException;
 import com.mindtree.letswork.module.authentication.exception.InvalidInputException;
+import com.mindtree.letswork.module.authentication.exception.InvalidJWTToken;
 import com.mindtree.letswork.module.authentication.exception.InvalidReferralCodeException;
 import com.mindtree.letswork.module.authentication.service.AuthService;
 import com.mindtree.letswork.module.venue.util.DTOUtil;
@@ -54,7 +55,7 @@ public class AuthController {
 
 	@GetMapping("/login/{username}&{password}")
 	public UserOutputDTO login(@Valid @PathVariable String username, @Valid @PathVariable String password) 
-			throws IncorrectPasswordException, UsernameNotFoundException {
+			throws IncorrectPasswordException, UsernameNotFoundException, InvalidJWTToken {
 		
 		User user = (User) detailsService.loadUserByUsername(username);
 		user = service.authenticatePassword(password, user);

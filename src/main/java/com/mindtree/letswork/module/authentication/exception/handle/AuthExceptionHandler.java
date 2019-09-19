@@ -49,7 +49,7 @@ public class AuthExceptionHandler extends ResponseEntityExceptionHandler {
 	public ResponseEntity<?> globalExceptionHandler(InvalidJWTToken ex, WebRequest request) {
 		CustomAuthException errorDetails = new CustomAuthException(ex.getMessage(), new Date(),
 				request.getDescription(false));
-		return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<>(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
 	@ExceptionHandler(InvalidInputException.class)
@@ -81,6 +81,6 @@ public class AuthExceptionHandler extends ResponseEntityExceptionHandler {
 		CustomAuthException errorDetails = new CustomAuthException("Invalid Input", new Date(),
 				request.getDescription(false));
 		return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
-	}
+	} 
 
 }
