@@ -43,7 +43,7 @@ public class AuthServiceImpl implements AuthService {
 	@Override
 	public User signup(User user) throws InvalidReferralCodeException, InvalidInputException {
 		if (user.getReferredCode() != null) {
-			checkValidityOfRefCode(user.getReferredCode());
+			validateReferralCode(user.getReferredCode());
 		}
 		if (isUsernameAvailable(user.getUserName())) {
 			String token = creator.generateJwtToken(user);
@@ -57,7 +57,7 @@ public class AuthServiceImpl implements AuthService {
 	}
 
 	@Override
-	public boolean checkValidityOfRefCode(String referralCode) throws InvalidReferralCodeException {
+	public boolean validateReferralCode(String referralCode) throws InvalidReferralCodeException {
 		Optional<User> user = repo.findByStringID(referralCode);
 		if (user.isPresent()) {
 			return true;

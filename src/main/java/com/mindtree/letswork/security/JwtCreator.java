@@ -29,6 +29,13 @@ public class JwtCreator {
 				.setExpiration(new Date((new Date()).getTime() + jwtExpiration))
 				.signWith(SignatureAlgorithm.HS512, jwtSecret).compact();
 	}
+	
+    public String getUserNameFromJwtToken(String token) {
+        return Jwts.parser()
+                      .setSigningKey(jwtSecret)
+                      .parseClaimsJws(token)
+                      .getBody().getSubject();
+    }
 
 	public boolean validateJwtToken(String token) {
 		try {
@@ -45,6 +52,5 @@ public class JwtCreator {
 		} catch (IllegalArgumentException ex) {
 			return false;
 		}
-	
 	}
 }

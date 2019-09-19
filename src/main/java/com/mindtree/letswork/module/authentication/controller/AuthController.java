@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.mindtree.letswork.module.authentication.dto.UserInputDTO;
 import com.mindtree.letswork.module.authentication.dto.UserOutputDTO;
@@ -32,7 +34,7 @@ import com.mindtree.letswork.module.venue.util.DTOUtil;
 import com.mindtree.letswork.security.JwtCreator;
 
 @RestController
-@CrossOrigin("http://localhost:4200")
+@CrossOrigin
 public class AuthController {
 
 	@Autowired
@@ -46,14 +48,19 @@ public class AuthController {
 
 	@Autowired
 	DTOUtil dtoUtil;
+	
+//	@Autowired
+//	AuthenticationManager auth; 
 
 	@GetMapping("/login/{username}&{password}")
 	public UserOutputDTO login(@Valid @PathVariable String username, @Valid @PathVariable String password) 
 			throws IncorrectPasswordException, UsernameNotFoundException {
+		
 		User user = (User) detailsService.loadUserByUsername(username);
 		user = service.authenticatePassword(password, user);
 		String token = creator.generateJwtToken(user);
 		service.updateToken(token, user);
+		
 		UserOutputDTO userOutput = new UserOutputDTO();
 		userOutput.setToken(token);
 		userOutput.setRole(user.getRole());
@@ -79,7 +86,9 @@ public class AuthController {
 		user.setRealName(userDTO.getRealName());
 		user.setEmail(userDTO.getEmail());
 		user.setPassword(userDTO.getPassword());
+		System.out.println(userDTO.getReferredCode());
 		user.setReferredCode(userDTO.getReferredCode());
+		System.out.println(user.getReferredCode());
 		return user;
 	}
 
@@ -112,5 +121,18 @@ public class AuthController {
 		fileOut.close();
 
 	}
+	
+//	public void authentification(String username, String password) {
+//		auth.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+//	}
+	
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/**").allowedOrigins("*");
+            }
+        };
+    }
 
 }

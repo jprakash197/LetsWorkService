@@ -14,7 +14,7 @@ public interface AuthService {
 	public User login (String username);
 	public User signup (User user) throws InvalidReferralCodeException, InvalidInputException;
 	public User authenticatePassword (String password, User user) throws IncorrectPasswordException;
-	public boolean checkValidityOfRefCode(String referralCode) throws InvalidReferralCodeException;
+	public boolean validateReferralCode(String referralCode) throws InvalidReferralCodeException;
 	@PreAuthorize("isAnonymous()")
 	public boolean isUsernameAvailable(String username);
 	public boolean updateToken(String token, User user);
