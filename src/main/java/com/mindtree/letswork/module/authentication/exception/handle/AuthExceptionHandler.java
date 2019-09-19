@@ -26,6 +26,8 @@ import com.mindtree.letswork.module.authentication.exception.InvalidInputExcepti
 import com.mindtree.letswork.module.authentication.exception.InvalidJWTToken;
 import com.mindtree.letswork.module.authentication.exception.InvalidReferralCodeException;
 
+
+
 @ControllerAdvice
 public class AuthExceptionHandler extends ResponseEntityExceptionHandler {
 
@@ -52,7 +54,7 @@ public class AuthExceptionHandler extends ResponseEntityExceptionHandler {
 
 	@ExceptionHandler(InvalidInputException.class)
 	public ResponseEntity<?> globalExceptionHandler(InvalidInputException ex, WebRequest request) {
-		CustomAuthException errorDetails = new CustomAuthException(ex.getMessage(), new Date(),
+		CustomAuthException errorDetails = new CustomAuthException(ex.getLocalizedMessage(), new Date(),
 				request.getDescription(false));
 		return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
 	}
@@ -67,7 +69,8 @@ public class AuthExceptionHandler extends ResponseEntityExceptionHandler {
 	@Override
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
 			HttpHeaders headers, HttpStatus status, WebRequest request) {
-		CustomAuthException errorDetails = new CustomAuthException(ex.getMessage(), new Date(),
+		CustomAuthException errorDetails = new CustomAuthException(
+				ex.getBindingResult().getFieldError().getDefaultMessage(), new Date(),
 				request.getDescription(false));
 		return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
 	}

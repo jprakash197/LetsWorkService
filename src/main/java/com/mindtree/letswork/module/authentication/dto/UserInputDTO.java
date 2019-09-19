@@ -11,7 +11,7 @@ public class UserInputDTO {
 	@NotNull(message = "Name cannot be null")
 	private String realName;
 	@NotNull(message = "Email cannot be null")
-	@Email(message = "Email should be valid")
+	@Email(message = "Email should be valid with the following format email@domain.com")
 	private String email;
 	@NotNull(message = "Password cannot be null")
 	@Pattern(regexp = "(?!^[0-9]*$)(?!^[a-zA-Z]*$)^([a-zA-Z0-9]{9,15})", 
