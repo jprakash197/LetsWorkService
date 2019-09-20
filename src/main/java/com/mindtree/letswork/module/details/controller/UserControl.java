@@ -19,7 +19,7 @@ import com.mindtree.letswork.module.details.dto.UserDto;
 import com.mindtree.letswork.module.details.entity.User;
 import com.mindtree.letswork.module.details.service.UserService;
 
-@CrossOrigin("http://localhost:4200")
+@CrossOrigin
 @RestController
 @RequestMapping(value = "/api")
 
