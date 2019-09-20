@@ -11,9 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.Base64Utils;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,7 +23,6 @@ import com.mindtree.letswork.module.venue.dto.VenueDTO;
 import com.mindtree.letswork.module.venue.dto.VenueRequestDTO;
 import com.mindtree.letswork.module.venue.entity.Image;
 import com.mindtree.letswork.module.venue.entity.Venue;
-import com.mindtree.letswork.module.venue.exception.CityNotFoundException;
 import com.mindtree.letswork.module.venue.exception.VenueException;
 import com.mindtree.letswork.module.venue.service.impl.VenueServiceImpl;
 import com.mindtree.letswork.module.venue.util.DTOUtil;
@@ -51,6 +52,28 @@ public class VenueController {
 			return ResponseEntity.ok().body("No venues available currently");
 
 	}
+	
+	@PutMapping("/venues")
+	public ResponseEntity<?> updateVenue(@Valid @RequestBody VenueDTO venue) throws VenueException {
+		boolean success =this.venueService.updateVenue((Venue) dtoUtil.convert(venue, Venue.class));
+		
+		if (success) {
+			return ResponseEntity.ok().body("Venue id: " + venue.getVenueId() + " updated");
+		} else {
+			return ResponseEntity.ok().body("Venue id: " + venue.getVenueId() + " failed to update");
+		}
+	}
+	
+	@DeleteMapping("/venues/{venueId}")
+	public ResponseEntity<?> deleteVenue(@PathVariable int venueId) throws VenueException {
+		boolean success = this.venueService.deleteVenue(venueId);
+		
+		if (success) {
+			return ResponseEntity.ok().body("Venue id: " + venueId + " deleted");
+		} else {
+			return ResponseEntity.ok().body("Venue id: " + venueId + " was not deleted");
+		}
+	}
 
 	@GetMapping("/cities")
 	public ResponseEntity<Set<String>> getCities() {
@@ -79,5 +102,40 @@ public class VenueController {
 		}
 
 		return venueDto;
+	}
+	
+	@GetMapping("/venues")
+	public List<VenueDTO> getAllVenues() throws VenueException {
+		List<VenueDTO> venuesDto = new ArrayList<VenueDTO>();
+		
+		StringBuilder exceptionMessage = new StringBuilder(); 
+		
+		this.venueService.getAllVenues().forEach(venue -> {
+			List<String> photo = new ArrayList<>();
+			Set<Image> image = venue.getImages();
+			VenueDTO venueDto = null;
+			try {
+				for (Image img : image) {
+					byte[] encodeBase64 = Base64Utils.encode(img.getImage());
+					String base64Encoded;
+
+					base64Encoded = new String(encodeBase64, "UTF-8");
+					String file = "data:image/jpg;base64," + base64Encoded;
+					photo.add(file);
+				}
+				venueDto = (VenueDTO) dtoUtil.convert(venue, VenueDTO.class);
+				venueDto.setImage(photo);
+			} catch (UnsupportedEncodingException e) {
+				exceptionMessage.append(e.getMessage());
+			}
+			
+			venuesDto.add(venueDto);
+		});
+		
+		if (exceptionMessage.length() != 0) {
+			throw new VenueException(exceptionMessage.toString());
+		}
+
+		return venuesDto;
 	}
 }

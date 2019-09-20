@@ -24,5 +24,5 @@ public interface UserRepo extends JpaRepository<User, Integer> {
 	@Transactional
 	@Modifying
 	@Query("UPDATE User SET token=?1 WHERE referral_code =?2")
-	void updateToken(String token, String referralCode);
+	int updateToken(String token, String referralCode);
 }

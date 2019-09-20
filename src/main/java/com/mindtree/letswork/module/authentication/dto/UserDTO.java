@@ -7,22 +7,22 @@ import com.mindtree.letswork.module.booking.entity.Payment;
 
 public class UserDTO {
 
-	private int referralCode;
-	private String userName;
+	private String referralCode;
+	private String username;
 	private String realName;
 	private String email;
 	private String password;
-	private String refferedCode;
+	private String referredCode;
 	private String role;
 	private String token;
 	private List<BookingDTO> bookings;
 	private Payment paymentInfo;
 	
-	public String getUserName() {
-		return userName;
+	public String getUsername() {
+		return username;
 	}
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 	public String getRealName() {
 		return realName;
@@ -30,11 +30,11 @@ public class UserDTO {
 	public void setRealName(String realName) {
 		this.realName = realName;
 	}
-	public String getRefferedCode() {
-		return refferedCode;
+	public String getReferredCode() {
+		return referredCode;
 	}
-	public void setRefferedCode(String refferedCode) {
-		this.refferedCode = refferedCode;
+	public void setReferredCode(String referredCode) {
+		this.referredCode = referredCode;
 	}
 	public String getRole() {
 		return role;
@@ -57,10 +57,10 @@ public class UserDTO {
 	public UserDTO() {
 		super();
 	}
-	public int getReferralCode() {
+	public String getReferralCode() {
 		return referralCode;
 	}
-	public void setReferralCode(int referralCode) {
+	public void setReferralCode(String referralCode) {
 		this.referralCode = referralCode;
 	}
 	public String getEmail() {

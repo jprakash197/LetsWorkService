@@ -24,11 +24,17 @@ public class JwtCreator {
 	private int jwtExpiration;
 
 	public String generateJwtToken(User user) {
-
 		return Jwts.builder().setSubject(user.getUserName()).setIssuedAt(new Date())
 				.setExpiration(new Date((new Date()).getTime() + jwtExpiration))
 				.signWith(SignatureAlgorithm.HS512, jwtSecret).compact();
 	}
+	
+    public String getUserNameFromJwtToken(String token) {
+        return Jwts.parser()
+                      .setSigningKey(jwtSecret)
+                      .parseClaimsJws(token)
+                      .getBody().getSubject(); 
+    }
 
 	public boolean validateJwtToken(String token) {
 		try {
@@ -45,6 +51,5 @@ public class JwtCreator {
 		} catch (IllegalArgumentException ex) {
 			return false;
 		}
-	
-	}
+	} 
 }

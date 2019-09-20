@@ -23,7 +23,10 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import com.mindtree.letswork.module.authentication.exception.CustomAuthException;
 import com.mindtree.letswork.module.authentication.exception.IncorrectPasswordException;
 import com.mindtree.letswork.module.authentication.exception.InvalidInputException;
+import com.mindtree.letswork.module.authentication.exception.InvalidJWTToken;
 import com.mindtree.letswork.module.authentication.exception.InvalidReferralCodeException;
+
+
 
 @ControllerAdvice
 public class AuthExceptionHandler extends ResponseEntityExceptionHandler {
@@ -41,10 +44,17 @@ public class AuthExceptionHandler extends ResponseEntityExceptionHandler {
 				request.getDescription(false));
 		return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
 	}
+	
+	@ExceptionHandler(InvalidJWTToken.class)
+	public ResponseEntity<?> globalExceptionHandler(InvalidJWTToken ex, WebRequest request) {
+		CustomAuthException errorDetails = new CustomAuthException(ex.getMessage(), new Date(),
+				request.getDescription(false));
+		return new ResponseEntity<>(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
+	}
 
 	@ExceptionHandler(InvalidInputException.class)
 	public ResponseEntity<?> globalExceptionHandler(InvalidInputException ex, WebRequest request) {
-		CustomAuthException errorDetails = new CustomAuthException(ex.getMessage(), new Date(),
+		CustomAuthException errorDetails = new CustomAuthException(ex.getLocalizedMessage(), new Date(),
 				request.getDescription(false));
 		return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
 	}
@@ -53,13 +63,14 @@ public class AuthExceptionHandler extends ResponseEntityExceptionHandler {
 	public ResponseEntity<?> globalExceptionHandler(InvalidReferralCodeException ex, WebRequest request) {
 		CustomAuthException errorDetails = new CustomAuthException(ex.getMessage(), new Date(),
 				request.getDescription(false));
-		return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
 	}
 
 	@Override
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
 			HttpHeaders headers, HttpStatus status, WebRequest request) {
-		CustomAuthException errorDetails = new CustomAuthException("Invalid Input", new Date(),
+		CustomAuthException errorDetails = new CustomAuthException(
+				ex.getBindingResult().getFieldError().getDefaultMessage(), new Date(),
 				request.getDescription(false));
 		return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
 	}
@@ -70,6 +81,6 @@ public class AuthExceptionHandler extends ResponseEntityExceptionHandler {
 		CustomAuthException errorDetails = new CustomAuthException("Invalid Input", new Date(),
 				request.getDescription(false));
 		return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
-	}
+	} 
 
 }

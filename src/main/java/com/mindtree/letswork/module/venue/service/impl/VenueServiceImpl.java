@@ -4,13 +4,18 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
+import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mindtree.letswork.module.booking.entity.Booking;
+import com.mindtree.letswork.module.venue.dto.VenueDTO;
 import com.mindtree.letswork.module.venue.entity.Venue;
 import com.mindtree.letswork.module.venue.exception.CityNotFoundException;
 import com.mindtree.letswork.module.venue.exception.InvalidDateException;
@@ -90,5 +95,32 @@ public class VenueServiceImpl implements VenueService {
 	@Override
 	public Venue getVenueDetails(int id) {
 		return (venueRepo.findById(id).get());
+	}
+
+	public List<Venue> getAllVenues() {
+		return this.venueRepo.findAll();
+	}
+
+	public boolean updateVenue(Venue venue) throws VenueException {
+		Optional<Venue> v = this.venueRepo.findById(venue.getVenueId());
+		if (v.isPresent()) {
+			v = Optional.of(this.venueRepo.save(venue));
+			if (v.isPresent()) {
+				return true;
+			} else {
+				throw new VenueException("Venue id: " + venue.getVenueId() + " could not get updated");
+			}
+		} else {
+			throw new VenueException("Venue id: " + venue.getVenueId() + " is invalid");
+		}
+	}
+
+	public boolean deleteVenue(int venueId) {
+		try {
+			this.venueRepo.deleteById(venueId);
+		} catch (IllegalArgumentException e) {
+			throw new ServiceException("Service operation \'delete\' failed: venueId: " + venueId);
+		}
+		return true;
 	}
 }
