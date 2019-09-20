@@ -1,5 +1,7 @@
 package com.mindtree.letswork;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -14,16 +16,20 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.mindtree.letswork.module.authentication.controller.AuthController;
 import com.mindtree.letswork.module.authentication.service.AuthService;
 import com.mindtree.letswork.module.authentication.service.impl.AuthServiceImpl;
+import com.mindtree.letswork.module.venue.controller.VenueController;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class ApplicationTests {
+public class VenueAdminTests {
 	
 	@Mock
 	AuthService authService;
 	
 	@Mock
 	AuthController authController;
+	
+	@Mock
+	VenueController venueController;
 	
 	@Before
 	public void beforeTest() {
@@ -41,6 +47,7 @@ public class ApplicationTests {
 		
 		System.out.println(stuff);
 		
+		assertEquals("Should equals", 10, 10);
 		
 	}
 	
