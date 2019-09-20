@@ -20,7 +20,7 @@ import com.mindtree.letswork.module.booking.service.PaymentService;
 import com.mindtree.letswork.module.venue.util.DTOUtil;
 
 
-@CrossOrigin("http://localhost:4200")
+@CrossOrigin
 
 @RestController
 public class PaymentController {
