@@ -37,32 +37,5 @@ public class BookingExceptionHandler extends ResponseEntityExceptionHandler {
 				request.getDescription(false));
 		return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
 	}
-//	@ExceptionHandler(value =DateServiceException.class)
-//	public APIErrorResponse invalidDateException(DateServiceException exception, WebRequest request) {
-//		APIErrorResponse errorDetails = new APIErrorResponse(new Date(), exception.getMessage(), request.getDescription(false), HttpStatus.BAD_REQUEST);
-////		return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
-//		return errorDetails;
-//	}
-
-//	@Override
-//	protected ResponseEntity<Object> handleMethodArgumentNotValid(
-//			MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
-//
-//		return handleExceptionInternal(ex, "card number is invalid" , headers, status, request);
-//	}
-//	
-//	@Override
-//	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
-//			HttpHeaders headers, HttpStatus status, WebRequest request) {
-//		return new ResponseEntity<>("Your card number is not valid!", HttpStatus.BAD_REQUEST);
-//	}
-//	
-//	@Override
-//	protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex,
-//			HttpHeaders headers, HttpStatus status, WebRequest request) {
-//		CustomAuthException errorDetails = new CustomAuthException("Invalid Input", new Date(),
-//				request.getDescription(false));
-//		return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
-//	}
 
 }
