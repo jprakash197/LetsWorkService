@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.mindtree.letswork.module.venue.entity.Venue;
-import com.mindtree.letswork.module.venue.exception.CityNotFoundException;
+import com.mindtree.letswork.module.venue.exception.InvalidDateException;
 import com.mindtree.letswork.module.venue.exception.VenueException;
 
 public interface VenueService {
@@ -31,6 +31,13 @@ public interface VenueService {
 	 * @return list of cities
 	 */
 	public Set<String> getCities();
+	
+	/**
+	 * @param date
+	 * @return
+	 * @throws InvalidDateException
+	 */
+	public boolean checkDate(Date date) throws InvalidDateException;
 	
 	/**
 	 * @param id

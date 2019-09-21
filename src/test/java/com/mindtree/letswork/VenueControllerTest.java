@@ -1,0 +1,85 @@
+package com.mindtree.letswork;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
+import com.mindtree.letswork.constant.VenueFeatures;
+import com.mindtree.letswork.module.booking.entity.Booking;
+import com.mindtree.letswork.module.venue.controller.VenueController;
+import com.mindtree.letswork.module.venue.entity.Image;
+import com.mindtree.letswork.module.venue.entity.Venue;
+import com.mindtree.letswork.module.venue.service.impl.VenueServiceImpl;
+
+@RunWith(SpringRunner.class)
+@SpringBootTest
+public class VenueControllerTest {
+
+	private MockMvc mockMvc;
+
+	@Mock
+	private VenueServiceImpl venueService;
+
+	@InjectMocks
+	private VenueController venueController;
+
+	@Before
+	public void setup() {
+		MockitoAnnotations.initMocks(this);
+		mockMvc = MockMvcBuilders.standaloneSetup(venueController).build();
+		System.out.println("jshdv");
+	}
+
+	@Test
+	public void getVenuesTest() throws Exception {
+
+		String json = "{\r\n" + "  \"capacity\": 100,\r\n" + "  \"city\": \"Bangalore\",\r\n"
+				+ "  \"date\": \"2019-09-20\",\r\n" + "  \"venueType\": \"Meeting\"\r\n" + "}";
+		Set<Booking> bookings = new HashSet<>();
+		Set<Image> images = new HashSet<>();
+		Set<VenueFeatures> features = new HashSet<>();
+		Venue venue1 = new Venue("MR-01", "Bangalore", "J.P.Nagar", 1000, 100, "Meeting room with sufficient space", 4,
+				5000, "Meeting", bookings, images, features);
+		Venue venue2 = new Venue("CR-01", "Bangalore", "Whitefield", 2000, 100, "Conference room with sufficient space",
+				3, 6000, "Conference", bookings, images, features);
+		List<Venue> venues = new ArrayList<>();
+		venues.add(venue1);
+		venues.add(venue2);
+
+		java.sql.Date date = Date.valueOf("2020-09-20");
+		Mockito.when(venueService.getFinalSearchedVenues("Meeting", date, 100, "Bangalore")).thenReturn(venues);
+		mockMvc.perform(MockMvcRequestBuilders.post("/venues").contentType(MediaType.APPLICATION_JSON).content(json))
+				.andExpect(MockMvcResultMatchers.status().isOk());
+
+		
+	}
+
+	@Test
+	public void getCitiesTest() throws Exception {
+		Set<String> citiesResult = new HashSet<String>();
+		citiesResult.add("Bangalore");
+		citiesResult.add("Mumbai");
+		citiesResult.add("Bhubaneswar");
+		Mockito.when(venueService.getCities()).thenReturn(citiesResult);
+
+		mockMvc.perform(MockMvcRequestBuilders.get("/venues"))
+				.andExpect(MockMvcResultMatchers.status().is2xxSuccessful());
+	}
+}

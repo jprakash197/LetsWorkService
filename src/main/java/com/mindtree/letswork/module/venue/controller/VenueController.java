@@ -76,7 +76,7 @@ public class VenueController {
 	}
 
 	@GetMapping("/cities")
-	public ResponseEntity<Set<String>> getCities() {
+	public ResponseEntity<?> getCities() {
 		return ResponseEntity.ok().body(venueService.getCities());
 	}
 

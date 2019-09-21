@@ -8,14 +8,11 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import javax.validation.Valid;
-
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mindtree.letswork.module.booking.entity.Booking;
-import com.mindtree.letswork.module.venue.dto.VenueDTO;
 import com.mindtree.letswork.module.venue.entity.Venue;
 import com.mindtree.letswork.module.venue.exception.CityNotFoundException;
 import com.mindtree.letswork.module.venue.exception.InvalidDateException;
@@ -62,17 +59,19 @@ public class VenueServiceImpl implements VenueService {
 		return venues;
 	}
 
-	private boolean checkDate(Date date) throws CityNotFoundException {
-		java.util.Date utilDate = new java.util.Date(date.getTime());
+	@SuppressWarnings("deprecation")
+	public boolean checkDate(Date date){
 		java.util.Date currentDate = new java.util.Date();
-		if (currentDate.getDate()>utilDate.getDate())
-		{
-			System.out.println(""+currentDate+utilDate);
+		
+		Date formattedDate=new Date(currentDate.getYear(),currentDate.getMonth(),currentDate.getDate());
+		
+		System.out.println(date+"   "+formattedDate+"  "+date.compareTo(formattedDate));
+		if (formattedDate.compareTo(date)>0)
 			return false;
-		}
 		return true;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public boolean checkAvailability(Venue venue, java.sql.Date date) {
 		boolean booked = true;
