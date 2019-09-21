@@ -14,8 +14,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-
-
 @EnableWebSecurity(debug=true)
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
@@ -53,15 +51,5 @@ public class LetsWorkSecurityConfig extends WebSecurityConfigurerAdapter {
 		
 		
 	}
-
-//	@Bean
-//	public HttpFirewall defaultHttpFirewall() {
-//		return new DefaultHttpFirewall();
-//	}
-//	
-//    @Bean
-//    public JwtAuthTokenFilter authenticationJwtTokenFilter() {
-//        return new JwtAuthTokenFilter();
-//    }
 
 }
