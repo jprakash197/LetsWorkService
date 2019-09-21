@@ -7,6 +7,7 @@ import java.util.Set;
 import com.mindtree.letswork.module.venue.entity.Venue;
 import com.mindtree.letswork.module.venue.exception.CityNotFoundException;
 import com.mindtree.letswork.module.venue.exception.VenueException;
+import com.mindtree.letswork.module.venue.exception.VenueNotFoundException;
 
 public interface VenueService {
 	
@@ -34,7 +35,9 @@ public interface VenueService {
 	
 	/**
 	 * @param id
-	 * @return
+	 * @return Venue having the given id 
+	 * @throws VenueNotFoundException 
+	 * @throws VenueException 
 	 */
-	public Venue getVenueDetails(int id);
+	public Venue getVenueDetails(int id) throws  VenueException;
 }
