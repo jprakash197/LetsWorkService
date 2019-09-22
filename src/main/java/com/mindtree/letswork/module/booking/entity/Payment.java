@@ -37,11 +37,12 @@ public class Payment {
 		
 	}
 
-	public Payment(int paymentId, String paymentMode, Card card) {
+	public Payment(int paymentId, String paymentMode, Card card, User user) {
 		super();
 		this.paymentId = paymentId;
 		this.paymentMode = paymentMode;
 		this.card = card;
+		this.user = user;
 	}
 
 	public int getPaymentId() {
@@ -68,6 +69,14 @@ public class Payment {
 		this.card = card;
 	}
 
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -75,6 +84,7 @@ public class Payment {
 		result = prime * result + ((card == null) ? 0 : card.hashCode());
 		result = prime * result + paymentId;
 		result = prime * result + ((paymentMode == null) ? 0 : paymentMode.hashCode());
+		result = prime * result + ((user == null) ? 0 : user.hashCode());
 		return result;
 	}
 
@@ -99,8 +109,14 @@ public class Payment {
 				return false;
 		} else if (!paymentMode.equals(other.paymentMode))
 			return false;
+		if (user == null) {
+			if (other.user != null)
+				return false;
+		} else if (!user.equals(other.user))
+			return false;
 		return true;
 	}
+
 	
 	
 	

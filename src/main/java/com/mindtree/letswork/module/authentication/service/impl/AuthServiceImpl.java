@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.mindtree.letswork.module.authentication.entity.User;
 import com.mindtree.letswork.module.authentication.exception.IncorrectPasswordException;
 import com.mindtree.letswork.module.authentication.exception.InvalidInputException;
+import com.mindtree.letswork.module.authentication.exception.InvalidJWTToken;
 import com.mindtree.letswork.module.authentication.exception.InvalidReferralCodeException;
 import com.mindtree.letswork.module.authentication.repository.UserRepo;
 import com.mindtree.letswork.module.authentication.service.AuthService;
@@ -43,7 +44,7 @@ public class AuthServiceImpl implements AuthService {
 	@Override
 	public User signup(User user) throws InvalidReferralCodeException, InvalidInputException {
 		if (user.getReferredCode() != null) {
-			checkValidityOfRefCode(user.getReferredCode());
+			validateReferralCode(user.getReferredCode());
 		}
 		if (isUsernameAvailable(user.getUserName())) {
 			String token = creator.generateJwtToken(user);
@@ -57,14 +58,14 @@ public class AuthServiceImpl implements AuthService {
 	}
 
 	@Override
-	public boolean checkValidityOfRefCode(String referralCode) throws InvalidReferralCodeException {
+	public boolean validateReferralCode(String referralCode) throws InvalidReferralCodeException {
 		Optional<User> user = repo.findByStringID(referralCode);
 		if (user.isPresent()) {
 			return true;
 		} else {
 			throw new InvalidReferralCodeException("Invalid Referral Code. Sign Up could not be completed");
 		}
-	}
+	} 
 
 	@Override
 	public boolean isUsernameAvailable(String username) {
@@ -77,9 +78,13 @@ public class AuthServiceImpl implements AuthService {
 	}
 
 	@Override
-	public boolean updateToken(String token, User user) {
-		repo.updateToken(token, user.getReferralCode());
-		return true;
+	public boolean updateToken(String token, User user) throws InvalidJWTToken {
+		int rows = repo.updateToken(token, user.getReferralCode());
+		if (rows != 0) {
+			return true;
+		} else {
+			throw new InvalidJWTToken ("Server Error: Unable to save Jason Web Token.");
+		}
 	}
 
 }

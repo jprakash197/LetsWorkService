@@ -27,9 +27,7 @@ public class Card {
 	
 	@Column(name="card_name")
 	private String cardName;
-//	
-//	@Column(name="cvv")
-//	private int cvv;
+
 	
 	@Column(name="expiry_date")
 	private String expiryDate;
@@ -43,7 +41,6 @@ public class Card {
 		this.cardId = cardId;
 		this.cardNumber = cardNumber;
 		this.cardName = cardName;
-//		this.cvv = cvv;
 		this.expiryDate = expiryDate;
 	}
 
@@ -70,14 +67,7 @@ public class Card {
 	public void setCardName(String cardName) {
 		this.cardName = cardName;
 	}
-//
-//	public int getCvv() {
-//		return cvv;
-//	}
 
-//	public void setCvv(int cvv) {
-//		this.cvv = cvv;
-//	}
 
 	public String getExpiryDate() {
 		return expiryDate;

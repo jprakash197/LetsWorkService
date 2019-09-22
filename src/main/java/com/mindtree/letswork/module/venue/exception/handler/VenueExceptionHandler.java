@@ -16,40 +16,54 @@ import com.mindtree.letswork.module.venue.exception.CityNotFoundException;
 import com.mindtree.letswork.module.venue.exception.CustomVenueException;
 import com.mindtree.letswork.module.venue.exception.InvalidDateException;
 import com.mindtree.letswork.module.venue.exception.InvalidVenueTypeException;
+import com.mindtree.letswork.module.venue.exception.VenueNotFoundException;
 
 @ControllerAdvice
-public class VenueExceptionHandler extends ResponseEntityExceptionHandler{
-	
+public class VenueExceptionHandler extends ResponseEntityExceptionHandler {
+
 	@ExceptionHandler(CityNotFoundException.class)
-	public ResponseEntity<?> globalExceptionHandler(CityNotFoundException ex,WebRequest request){
-		CustomVenueException errorDetails = new CustomVenueException(ex.getMessage(),new Date(),request.getDescription(false));
-		return new ResponseEntity<>(errorDetails,HttpStatus.NOT_FOUND);
+	public ResponseEntity<?> globalExceptionHandler(CityNotFoundException ex, WebRequest request) {
+		CustomVenueException errorDetails = new CustomVenueException(ex.getMessage(), new Date(),
+				request.getDescription(false));
+		return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
 	}
-	
+
 	@ExceptionHandler(InvalidDateException.class)
-	public ResponseEntity<?> globalExceptionHandler(InvalidDateException ex,WebRequest request){
-		CustomVenueException errorDetails = new CustomVenueException(ex.getMessage(),new Date(),request.getDescription(false));
-		return new ResponseEntity<>(errorDetails,HttpStatus.BAD_REQUEST);
+	public ResponseEntity<?> globalExceptionHandler(InvalidDateException ex, WebRequest request) {
+		CustomVenueException errorDetails = new CustomVenueException(ex.getMessage(), new Date(),
+				request.getDescription(false));
+		return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
 	}
-	
+
 	@ExceptionHandler(InvalidVenueTypeException.class)
-	public ResponseEntity<?> globalExceptionHandler(InvalidVenueTypeException ex,WebRequest request){
-		CustomVenueException errorDetails = new CustomVenueException(ex.getMessage(),new Date(),request.getDescription(false));
-		return new ResponseEntity<>(errorDetails,HttpStatus.BAD_REQUEST);
+	public ResponseEntity<?> globalExceptionHandler(InvalidVenueTypeException ex, WebRequest request) {
+		CustomVenueException errorDetails = new CustomVenueException(ex.getMessage(), new Date(),
+				request.getDescription(false));
+		return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
 	}
-	
+
+	@ExceptionHandler(VenueNotFoundException.class)
+	public ResponseEntity<?> VenueExceptionHandler(VenueNotFoundException ex, WebRequest request) {
+		CustomVenueException errorDetails = new CustomVenueException(ex.getMessage(), new Date(),
+				request.getDescription(false));
+		return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
+
+	}
+
 	@Override
-	protected ResponseEntity<Object> handleMethodArgumentNotValid(
-			MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
-		CustomVenueException errorDetails= new CustomVenueException("Invalid Input",new Date(),request.getDescription(false));
-		return new ResponseEntity<>(errorDetails,HttpStatus.BAD_REQUEST);
+	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
+			HttpHeaders headers, HttpStatus status, WebRequest request) {
+		CustomVenueException errorDetails = new CustomVenueException("Invalid Input", new Date(),
+				request.getDescription(false));
+		return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
 	}
-	
+
 	@Override
-	protected ResponseEntity<Object> handleHttpMessageNotReadable(
-			HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
-		CustomVenueException errorDetails= new CustomVenueException("Invalid Input",new Date(),request.getDescription(false));
-		return new ResponseEntity<>(errorDetails,HttpStatus.BAD_REQUEST);
+	protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex,
+			HttpHeaders headers, HttpStatus status, WebRequest request) {
+		CustomVenueException errorDetails = new CustomVenueException("Invalid Input", new Date(),
+				request.getDescription(false));
+		return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
 	}
-	
+
 }

@@ -143,6 +143,6 @@ public class VenueDTO {
 
 	public void setImage(List<String> image) {
 		this.image = image;
-	}
+	} 
 
 }

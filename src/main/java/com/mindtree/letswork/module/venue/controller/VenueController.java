@@ -24,6 +24,7 @@ import com.mindtree.letswork.module.venue.dto.VenueRequestDTO;
 import com.mindtree.letswork.module.venue.entity.Image;
 import com.mindtree.letswork.module.venue.entity.Venue;
 import com.mindtree.letswork.module.venue.exception.VenueException;
+import com.mindtree.letswork.module.venue.exception.VenueNotFoundException;
 import com.mindtree.letswork.module.venue.service.impl.VenueServiceImpl;
 import com.mindtree.letswork.module.venue.util.DTOUtil;
 
@@ -81,7 +82,8 @@ public class VenueController {
 	}
 
 	@GetMapping("/getDetails/{id}")
-	public VenueDTO getDetails(@PathVariable int id) throws VenueException {
+	public ResponseEntity<?> getDetails(@PathVariable int id) throws VenueException {
+		System.out.println("id is "+1);
 		Venue venue = venueService.getVenueDetails(id);
 		VenueDTO venueDto = (VenueDTO) dtoUtil.convert(venue, VenueDTO.class);
 		List<String> photo = new ArrayList<>();
@@ -101,7 +103,7 @@ public class VenueController {
 			throw new VenueException(e.getMessage());
 		}
 
-		return venueDto;
+		return ResponseEntity.ok().body(venueDto);
 	}
 	
 	@GetMapping("/venues")
@@ -132,7 +134,7 @@ public class VenueController {
 			venuesDto.add(venueDto);
 		});
 		
-		if (exceptionMessage.length() != 0) {
+		 if (exceptionMessage.length() != 0) {
 			throw new VenueException(exceptionMessage.toString());
 		}
 

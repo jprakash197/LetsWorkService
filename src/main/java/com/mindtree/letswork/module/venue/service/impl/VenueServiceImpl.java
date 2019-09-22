@@ -8,19 +8,17 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import javax.validation.Valid;
-
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mindtree.letswork.module.booking.entity.Booking;
-import com.mindtree.letswork.module.venue.dto.VenueDTO;
 import com.mindtree.letswork.module.venue.entity.Venue;
 import com.mindtree.letswork.module.venue.exception.CityNotFoundException;
 import com.mindtree.letswork.module.venue.exception.InvalidDateException;
 import com.mindtree.letswork.module.venue.exception.InvalidVenueTypeException;
 import com.mindtree.letswork.module.venue.exception.VenueException;
+import com.mindtree.letswork.module.venue.exception.VenueNotFoundException;
 import com.mindtree.letswork.module.venue.repository.VenueRepo;
 import com.mindtree.letswork.module.venue.service.VenueService;
 
@@ -65,9 +63,8 @@ public class VenueServiceImpl implements VenueService {
 	private boolean checkDate(Date date) throws CityNotFoundException {
 		java.util.Date utilDate = new java.util.Date(date.getTime());
 		java.util.Date currentDate = new java.util.Date();
-		if (currentDate.getDate()>utilDate.getDate())
-		{
-			System.out.println(""+currentDate+utilDate);
+		if (currentDate.getDate() > utilDate.getDate()) {
+			System.out.println("" + currentDate + utilDate);
 			return false;
 		}
 		return true;
@@ -93,8 +90,14 @@ public class VenueServiceImpl implements VenueService {
 	}
 
 	@Override
-	public Venue getVenueDetails(int id) {
-		return (venueRepo.findById(id).get());
+	public Venue getVenueDetails(int id) throws VenueException {
+		Optional<Venue> venue = null;
+		venue = venueRepo.findById(id);
+		if (venue.isPresent()) {
+			return venue.get();
+		} else {
+			throw new VenueNotFoundException("Venue Not Found");
+		}
 	}
 
 	public List<Venue> getAllVenues() {
