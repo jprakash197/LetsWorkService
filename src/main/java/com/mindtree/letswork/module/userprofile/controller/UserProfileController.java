@@ -1,6 +1,8 @@
 package com.mindtree.letswork.module.userprofile.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,10 +27,13 @@ public class UserProfileController {
 	DTOUtils utility;
 
 	@GetMapping("/getUser/{name}")
-	public UserDTO getUserByName(@PathVariable String name) {
+	public ResponseEntity<UserDTO> getUserByName(@PathVariable String name) {
 		System.out.println(name);
 		UserDTO currentUser = (UserDTO) utility.convert(profileService.getUserByName(name), UserDTO.class);
-		return currentUser;
+		if(currentUser == null) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
+		return ResponseEntity.ok().body(currentUser);
 	}
 
 	@PostMapping("/addUser")
