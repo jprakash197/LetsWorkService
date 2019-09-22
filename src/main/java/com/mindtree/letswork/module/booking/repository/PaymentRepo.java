@@ -1,9 +1,9 @@
 package com.mindtree.letswork.module.booking.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
 
 import com.mindtree.letswork.module.booking.entity.Payment;
 
-public interface PaymentRepo extends JpaRepository<Payment, Integer> {
+public interface PaymentRepo extends CrudRepository<Payment, Integer> {
 
 }

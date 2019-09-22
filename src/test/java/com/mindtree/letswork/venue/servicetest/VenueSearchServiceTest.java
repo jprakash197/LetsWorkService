@@ -1,4 +1,4 @@
-package com.mindtree.letswork;
+package com.mindtree.letswork.venue.servicetest;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -27,7 +27,7 @@ import com.mindtree.letswork.module.venue.repository.VenueRepo;
 import com.mindtree.letswork.module.venue.service.impl.VenueServiceImpl;
 
 @RunWith(SpringRunner.class)
-public class VenueServiceTest {
+public class VenueSearchServiceTest {
 
 	@InjectMocks
 	private VenueServiceImpl venueService;

@@ -18,6 +18,7 @@ import com.mindtree.letswork.module.venue.exception.CityNotFoundException;
 import com.mindtree.letswork.module.venue.exception.InvalidDateException;
 import com.mindtree.letswork.module.venue.exception.InvalidVenueTypeException;
 import com.mindtree.letswork.module.venue.exception.VenueException;
+import com.mindtree.letswork.module.venue.exception.VenueNotFoundException;
 import com.mindtree.letswork.module.venue.repository.VenueRepo;
 import com.mindtree.letswork.module.venue.service.VenueService;
 
@@ -60,13 +61,10 @@ public class VenueServiceImpl implements VenueService {
 	}
 
 	@SuppressWarnings("deprecation")
-	public boolean checkDate(Date date){
+	public boolean checkDate(Date date) {
 		java.util.Date currentDate = new java.util.Date();
-		
-		Date formattedDate=new Date(currentDate.getYear(),currentDate.getMonth(),currentDate.getDate());
-		
-		System.out.println(date+"   "+formattedDate+"  "+date.compareTo(formattedDate));
-		if (formattedDate.compareTo(date)>0)
+		Date formattedDate = new Date(currentDate.getYear(), currentDate.getMonth(), currentDate.getDate());
+		if (formattedDate.compareTo(date) > 0)
 			return false;
 		return true;
 	}
@@ -92,8 +90,14 @@ public class VenueServiceImpl implements VenueService {
 	}
 
 	@Override
-	public Venue getVenueDetails(int id) {
-		return (venueRepo.findById(id).get());
+	public Venue getVenueDetails(int id) throws VenueException {
+		Optional<Venue> venue = null;
+		venue = venueRepo.findById(id);
+		if (venue.isPresent()) {
+			return venue.get();
+		} else {
+			throw new VenueNotFoundException("Venue Not Found");
+		}
 	}
 
 	public List<Venue> getAllVenues() {

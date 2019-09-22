@@ -1,4 +1,4 @@
-package com.mindtree.letswork;
+package com.mindtree.letswork.venue.controllertest;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -30,7 +30,7 @@ import com.mindtree.letswork.module.venue.service.impl.VenueServiceImpl;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class VenueControllerTest {
+public class VenueSearchControllerTest {
 
 	private MockMvc mockMvc;
 
