@@ -20,25 +20,25 @@ public class UserProfileController {
 
 	@Autowired
 	UserProfileService profileService;
-	
+
 	@Autowired
 	DTOUtils utility;
-	
+
 	@GetMapping("/getUser/{name}")
 	public UserDTO getUserByName(@PathVariable String name) {
 		System.out.println(name);
 		UserDTO currentUser = (UserDTO) utility.convert(profileService.getUserByName(name), UserDTO.class);
 		return currentUser;
 	}
-	
+
 	@PostMapping("/addUser")
 	public void addUser(@RequestBody UserDTO userDTO) {
 		System.out.println(profileService.addUser((User) utility.convert(userDTO, User.class)));
 	}
-	
+
 	@PutMapping("getUser/{name}")
 	public void editEmail(@RequestBody String email, @PathVariable String name) {
 		profileService.editUserEmail(email, name);
 	}
-	
+
 }

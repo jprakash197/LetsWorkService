@@ -11,24 +11,22 @@ import javax.persistence.Lob;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="User_details")
+@Table(name = "User_details")
 public class User {
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "USER_ID")
 	private int id;
-	
+
 	@Column(unique = true, name = "USERNAME")
 	private String name;
-	
+
 	@Column(name = "EMAIL_ID")
 	private String email_id;
-	
+
 	@Lob
-    private byte[] primaryImage;
-	
-	
+	private byte[] primaryImage;
 
 	public User(int id, String name, String email_id, byte[] primaryImage, String phone_number) {
 		super();
@@ -46,7 +44,6 @@ public class User {
 	public void setPrimaryImage(byte[] primaryImage) {
 		this.primaryImage = primaryImage;
 	}
-
 
 	@Override
 	public String toString() {
@@ -91,11 +88,50 @@ public class User {
 
 	public User() {
 		super();
-		// TODO Auto-generated constructor stub
+	
 	}
 
-	
-	
-	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((email_id == null) ? 0 : email_id.hashCode());
+		result = prime * result + id;
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((phone_number == null) ? 0 : phone_number.hashCode());
+		result = prime * result + Arrays.hashCode(primaryImage);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		if (email_id == null) {
+			if (other.email_id != null)
+				return false;
+		} else if (!email_id.equals(other.email_id))
+			return false;
+		if (id != other.id)
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (phone_number == null) {
+			if (other.phone_number != null)
+				return false;
+		} else if (!phone_number.equals(other.phone_number))
+			return false;
+		if (!Arrays.equals(primaryImage, other.primaryImage))
+			return false;
+		return true;
+	}
 
 }
