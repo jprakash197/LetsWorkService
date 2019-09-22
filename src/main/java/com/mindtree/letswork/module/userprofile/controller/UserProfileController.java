@@ -36,10 +36,10 @@ public class UserProfileController {
 		return ResponseEntity.ok().body(currentUser);
 	}
 
-	@PostMapping("/addUser")
-	public void addUser(@RequestBody UserDTO userDTO) {
-		System.out.println(profileService.addUser((User) utility.convert(userDTO, User.class)));
-	}
+//	@PostMapping("/addUser")
+//	public void addUser(@RequestBody UserDTO userDTO) {
+//		System.out.println(profileService.addUser((User) utility.convert(userDTO, User.class)));
+//	}
 
 	@PutMapping("getUser/{name}")
 	public void editEmail(@RequestBody String email, @PathVariable String name) {
