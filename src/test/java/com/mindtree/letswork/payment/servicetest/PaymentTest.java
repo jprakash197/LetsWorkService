@@ -1,4 +1,4 @@
-package com.mindtree.letswork;
+package com.mindtree.letswork.payment.servicetest;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
 
