@@ -20,7 +20,7 @@ public class PaymentDTO {
 
 	}
 
-	public PaymentDTO(int paymentId, String paymentMode, Card card) {
+	public PaymentDTO(int paymentId, String paymentMode, Card card, User user) {
 		super();
 		this.paymentId = paymentId;
 		this.paymentMode = paymentMode;

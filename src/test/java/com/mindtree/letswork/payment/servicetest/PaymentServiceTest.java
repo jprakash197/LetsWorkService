@@ -21,7 +21,7 @@ import com.mindtree.letswork.module.booking.service.impl.PaymentServiceImpl;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class PaymentTest {
+public class PaymentServiceTest {
 	@MockBean
 	CardRepo cardRepository;
 	
@@ -101,8 +101,6 @@ public class PaymentTest {
 	 			e.printStackTrace();
 	 		}		
 		 }
-		
-		
 		
 	}
 
