@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mindtree.letswork.module.authentication.entity.User;
 import com.mindtree.letswork.module.venue.entity.Venue;
 
@@ -23,9 +24,11 @@ public class Booking {
 	private Date date;
 	
 	@ManyToOne
+	@JsonIgnore
 	private Venue venue;
 	
 	@ManyToOne
+	@JsonIgnore
 	private User user;
 
 	public User getUser() {
