@@ -1,4 +1,4 @@
-package com.mindtree.letswork;
+package com.mindtree.letswork.payment.servicetest;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
 
@@ -21,7 +21,7 @@ import com.mindtree.letswork.module.booking.service.impl.PaymentServiceImpl;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class PaymentTest {
+public class PaymentServiceTest {
 	@MockBean
 	CardRepo cardRepository;
 	
