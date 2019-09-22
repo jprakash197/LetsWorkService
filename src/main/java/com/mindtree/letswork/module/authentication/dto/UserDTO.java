@@ -81,6 +81,7 @@ public class UserDTO {
 	public void setBookings(List<BookingDTO> bookings) {
 		this.bookings = bookings;
 	}
-
+	
+	
 	
 }

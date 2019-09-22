@@ -26,10 +26,10 @@ public class Payment {
 	@Column(name="payment_mode")
 	private String paymentMode;
 	
-	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
 	private Card card;
 	
-	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
 	private User user; 
 
 	public Payment() 

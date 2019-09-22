@@ -1,30 +1,16 @@
 package com.mindtree.letswork.module.details.dto;
 
-import java.util.Arrays;
-
 import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.Table;
-
 
 public class UserDto {
-	
-	
+
 	private int id;
-	
-	
+
 	private String name;
-	
+
 	private String email_id;
-	
-	
-    private String primaryImage;
-	
-	
+
+	private String primaryImage;
 
 	public UserDto(int id, String name, String email_id, String primaryImage, String phone_number) {
 		super();
@@ -43,11 +29,10 @@ public class UserDto {
 		this.primaryImage = primaryImage;
 	}
 
-
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", email_id=" + email_id + ", primaryImage="
-				+ primaryImage + ", phone_number=" + phone_number + "]";
+		return "User [id=" + id + ", name=" + name + ", email_id=" + email_id + ", primaryImage=" + primaryImage
+				+ ", phone_number=" + phone_number + "]";
 	}
 
 	public int getId() {
@@ -87,10 +72,54 @@ public class UserDto {
 
 	public UserDto() {
 		super();
-		// TODO Auto-generated constructor stub
+		
 	}
 
-	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((email_id == null) ? 0 : email_id.hashCode());
+		result = prime * result + id;
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((phone_number == null) ? 0 : phone_number.hashCode());
+		result = prime * result + ((primaryImage == null) ? 0 : primaryImage.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		UserDto other = (UserDto) obj;
+		if (email_id == null) {
+			if (other.email_id != null)
+				return false;
+		} else if (!email_id.equals(other.email_id))
+			return false;
+		if (id != other.id)
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (phone_number == null) {
+			if (other.phone_number != null)
+				return false;
+		} else if (!phone_number.equals(other.phone_number))
+			return false;
+		if (primaryImage == null) {
+			if (other.primaryImage != null)
+				return false;
+		} else if (!primaryImage.equals(other.primaryImage))
+			return false;
+		return true;
+	}
 	
 	
 

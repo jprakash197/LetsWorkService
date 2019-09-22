@@ -6,8 +6,6 @@ import com.mindtree.letswork.module.details.entity.User;
 
 public interface UserService {
 
-	
-
 	List<User> getAllUsers();
 
 }
