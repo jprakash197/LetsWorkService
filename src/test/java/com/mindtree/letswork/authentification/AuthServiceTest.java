@@ -1,4 +1,4 @@
-package com.mindtree.letswork;
+package com.mindtree.letswork.authentification;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
@@ -25,7 +25,7 @@ import com.mindtree.letswork.security.JwtCreator;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class AuthentificationJunitTest {
+public class AuthServiceTest {
 
 	@Autowired
 	AuthService service;
@@ -44,7 +44,6 @@ public class AuthentificationJunitTest {
 		User user = new User();
 		user.setUserName("MockUsername");
 		Mockito.when(userRepo.findUserByUserName("MockUsername")).thenReturn(user);
-
 		assertEquals(user, service.login("MockUsername"));
 	}
 	
@@ -210,4 +209,4 @@ public class AuthentificationJunitTest {
 		assertEquals("Server Error: Unable to save Jason Web Token.", service.updateToken(token, user));
 	}
 	
-} 
+}  
