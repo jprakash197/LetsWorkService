@@ -47,21 +47,15 @@ public class AuthController {
 	@Autowired
 	JwtCreator creator;
 
-	@Autowired
-	DTOUtil dtoUtil;
-	
-//	@Autowired
-//	AuthenticationManager auth; 
-
 	@GetMapping("/login/{username}&{password}")
-	public UserOutputDTO login(@Valid @PathVariable String username, @Valid @PathVariable String password) 
+	public UserOutputDTO login(@Valid @PathVariable String username, @Valid @PathVariable String password)
 			throws IncorrectPasswordException, UsernameNotFoundException, InvalidJWTToken {
-		
+
 		User user = (User) detailsService.loadUserByUsername(username);
 		user = service.authenticatePassword(password, user);
 		String token = creator.generateJwtToken(user);
 		service.updateToken(token, user);
-		
+
 		UserOutputDTO userOutput = new UserOutputDTO();
 		userOutput.setToken(token);
 		userOutput.setRole(user.getRole());
@@ -72,17 +66,15 @@ public class AuthController {
 	public UserOutputDTO signup(@Valid @RequestBody UserInputDTO userDTO)
 			throws IOException, InvalidReferralCodeException, InvalidInputException {
 		User user = mapOntoUser(userDTO);
-		String password = user.getPassword();
 		user = service.signup(user);
-		// updateExcel(user, password);
 		UserOutputDTO userOutput = new UserOutputDTO();
 		userOutput.setToken(user.getToken());
 		userOutput.setRole(user.getRole());
 		return userOutput;
 	}
-	
+
 	public User mapOntoUser(UserInputDTO userDTO) {
-		User user = new User(); 
+		User user = new User();
 		user.setUserName(userDTO.getUsername());
 		user.setRealName(userDTO.getRealName());
 		user.setEmail(userDTO.getEmail());
@@ -93,47 +85,14 @@ public class AuthController {
 		return user;
 	}
 
-	private void updateExcel(User user, String password) throws IOException {
 
-		Workbook wb = new HSSFWorkbook();
-		OutputStream fileOut = new FileOutputStream("D:\\SpringbootStuff\\apache\\Output.csv");
-		Sheet sheet = wb.getSheet("sheet");
-
-		int rownum = sheet.getLastRowNum();
-		Row row = sheet.createRow(rownum++);
-		Cell cell1 = row.createCell(0);
-		cell1.setCellValue((String) user.getReferralCode());
-		Cell cell2 = row.createCell(1);
-		cell2.setCellValue((String) user.getRealName());
-		Cell cell3 = row.createCell(2);
-		cell3.setCellValue((String) user.getUserName());
-		Cell cell4 = row.createCell(3);
-		cell4.setCellValue((String) user.getEmail());
-		Cell cell5 = row.createCell(4);
-		cell5.setCellValue((String) password);
-		Cell cell6 = row.createCell(5);
-		cell6.setCellValue((String) user.getReferredCode());
-		Cell cell7 = row.createCell(6);
-		cell7.setCellValue((String) user.getRole());
-		Cell cell8 = row.createCell(7);
-		cell8.setCellValue((String) user.getToken());
-
-		wb.write(fileOut);
-		fileOut.close();
-
+	public WebMvcConfigurer corsConfigurer() {
+		return new WebMvcConfigurer() {
+			@Override
+			public void addCorsMappings(CorsRegistry registry) {
+				registry.addMapping("/**").allowedOrigins("*");
+			}
+		};
 	}
-	
-//	public void authentification(String username, String password) {
-//		auth.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-//	}
-	
-    public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurer() {
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**").allowedOrigins("*");
-            }
-        };
-    }
 
 }
