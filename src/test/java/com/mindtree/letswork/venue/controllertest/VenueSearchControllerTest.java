@@ -44,7 +44,6 @@ public class VenueSearchControllerTest {
 	public void setup() {
 		MockitoAnnotations.initMocks(this);
 		mockMvc = MockMvcBuilders.standaloneSetup(venueController).build();
-		System.out.println("jshdv");
 	}
 
 	@Test

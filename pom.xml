@@ -19,9 +19,13 @@
 		<java.version>1.8</java.version>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
+		<sonar.host.url>http://localhost:8081</sonar.host.url>
 		<sonar.coverage.exclusions>
-			**/module/venue/entity/*,
-			**/module/booking/entity/*
+			src/main/java/com/mindtree/letswork/module/booking/entity/*.java,
+			src/main/java/com/mindtree/letswork/module/authentication/entity/*.java,
+			src/main/java/com/mindtree/letswork/module/venue/entity/*.java,
+			src/main/java/com/mindtree/letswork/module/details/entity/*.java,
+			src/main/java/com/mindtree/letswork/module/userprofile/entity/*.java
 		</sonar.coverage.exclusions>
 	</properties>
 
@@ -126,16 +130,16 @@
 			<artifactId>spring-security-oauth2</artifactId>
 			<version>2.3.3.RELEASE</version>
 		</dependency>
-		
-		 <dependency>
-		    <groupId>javax.mail</groupId>
-		    <artifactId>javax.mail-api</artifactId>
-		    <version>1.6.0</version>
+
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>javax.mail-api</artifactId>
+			<version>1.6.0</version>
 		</dependency>
 		<dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-mail</artifactId>
-        </dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
 
 		<dependency>
 			<groupId>com.h2database</groupId>
@@ -152,6 +156,53 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.7.9</version>
+				<executions>
+					<execution>
+						<id>prepare-agent</id>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>report</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>post-unit-test</id>
+						<phase>test</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+						<configuration>
+							<excludes>
+								<exclude>src/main/java/com/mindtree/letswork/module/booking/entity/*.java</exclude>
+								<exclude>src/main/java/com/mindtree/letswork/module/authentication/entity/*.java</exclude>
+								<exclude>src/main/java/com/mindtree/letswork/module/venue/entity/*.java</exclude>
+								<exclude>src/main/java/com/mindtree/letswork/module/details/entity/*.java</exclude>
+								<exclude>src/main/java/com/mindtree/letswork/module/userprofile/entity/*.java</exclude>
+							</excludes>
+							<!-- Sets the path to the file which contains the execution data. -->
+							<dataFile>target/jacoco.exec</dataFile>
+							<!-- Sets the output directory for the code coverage report. -->
+							<outputDirectory> target/jacoco-ut</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+				<configuration>
+					<systemPropertyVariables>
+						<jacoco-agent.destfile>
+							target/jacoco.exec
+						</jacoco-agent.destfile>
+					</systemPropertyVariables>
+				</configuration>
 			</plugin>
 		</plugins>
 		<resources>

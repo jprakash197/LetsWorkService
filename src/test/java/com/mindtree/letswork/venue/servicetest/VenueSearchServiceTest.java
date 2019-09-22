@@ -18,6 +18,7 @@ import org.mockito.Mockito;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.mindtree.letswork.constant.VenueFeatures;
+import com.mindtree.letswork.module.authentication.entity.User;
 import com.mindtree.letswork.module.booking.entity.Booking;
 import com.mindtree.letswork.module.venue.entity.Image;
 import com.mindtree.letswork.module.venue.entity.Venue;
@@ -73,8 +74,12 @@ public class VenueSearchServiceTest {
 		Set<Booking> bookings = new HashSet<>();
 		Set<Image> images = new HashSet<>();
 		Set<VenueFeatures> features = new HashSet<>();
+		java.sql.Date date = Date.valueOf("2019-09-20");
+		Booking b=new Booking(1,date,null,new User());
+		bookings.add(b);
 		Venue venue1 = new Venue("MR-01", "Bangalore", "J.P.Nagar", 1000, 100, "Meeting room with sufficient space", 4,
 				5000, "Meeting", bookings, images, features);
+		b.setVenue(venue1);
 		Venue venue2 = new Venue("CR-01", "Bangalore", "Whitefield", 2000, 100, "Conference room with sufficient space",
 				3, 6000, "Conference", bookings, images, features);
 		List<Venue> venues = new ArrayList<>();
