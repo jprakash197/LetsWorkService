@@ -18,7 +18,7 @@ import com.mindtree.letswork.module.authentication.exception.CustomAuthException
  *
  */
 public class LetsWorkExceptionHandler extends ResponseEntityExceptionHandler {
-	
+	  
 	@Override
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
 			HttpHeaders headers, HttpStatus status, WebRequest request) {
