@@ -24,7 +24,7 @@ public class JwtCreator {
 	private int jwtExpiration;
 
 	public String generateJwtToken(User user) {
-		return Jwts.builder().setSubject(user.getUserName()).setIssuedAt(new Date())
+		return Jwts.builder().setSubject(user.getUsername()).setIssuedAt(new Date())
 				.setExpiration(new Date((new Date()).getTime() + jwtExpiration))
 				.signWith(SignatureAlgorithm.HS512, jwtSecret).compact();
 	}

@@ -47,7 +47,7 @@ public class LetsWorkSecurityConfig extends WebSecurityConfigurerAdapter {
 		.antMatchers("/login/**").permitAll()
 		.and().authorizeRequests().antMatchers("/getUser*").hasRole("USER")
 		.antMatchers("addUser").hasRole("USER").antMatchers("/admin*").hasRole("ADMIN")
-		.anyRequest().authenticated().and().oauth2Login();
+		.anyRequest().authenticated();
 		
 		
 	}

@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mindtree.letswork.module.details.dto.UserDto;
-import com.mindtree.letswork.module.details.entity.User;
+import com.mindtree.letswork.module.details.entity.UserDetails;
 import com.mindtree.letswork.module.details.service.UserService;
 
 @CrossOrigin
@@ -33,12 +33,12 @@ public class UserControl {
 	@GetMapping("/getAll")
 	public List<UserDto> getAll() 
 	{
-		List<User> user= userService.getAllUsers();
+		List<UserDetails> userDetails= userService.getAllUsers();
 		
 		List<UserDto> Userdto =new ArrayList<>();
 		try
 		{
-		for(User userdto:user)
+		for(UserDetails userdto:userDetails)
 		{
 			UserDto dto=new UserDto();
 			dto.setId(userdto.getId());

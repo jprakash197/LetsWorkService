@@ -87,7 +87,8 @@ public class VenueController {
 		Venue venue = venueService.getVenueDetails(id);
 		VenueDTO venueDto = (VenueDTO) dtoUtil.convert(venue, VenueDTO.class);
 		List<String> photo = new ArrayList<>();
-		Set<Image> image = venue.getImages();
+	 	Set<Image> image = venue.getImages();
+	 	if(!image.isEmpty()) {
 		try {
 			for (Image img : image) {
 				byte[] encodeBase64 = Base64Utils.encode(img.getImage());
@@ -102,6 +103,7 @@ public class VenueController {
 
 			throw new VenueException(e.getMessage());
 		}
+	 	}
 
 		return ResponseEntity.ok().body(venueDto);
 	}

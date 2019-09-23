@@ -26,11 +26,11 @@ public class UserProfileServiceImpl implements UserProfileService {
 			return null;
 		}
 		users.forEach(user -> {
-			System.out.println(user.getUserName());
+			System.out.println(user.getUsername());
 		});
 		User user = users
 				.stream()
-				.filter(thecurrentUser -> thecurrentUser.getUserName().compareTo(name) == 0)
+				.filter(thecurrentUser -> thecurrentUser.getUsername().compareTo(name) == 0)
 				.findFirst()
 				.orElse(null);
 		return user;
@@ -41,7 +41,7 @@ public class UserProfileServiceImpl implements UserProfileService {
 		List<User> users = userRepo.findAll();
 		User user = users
 				.stream()
-				.filter(thecurrentUser -> thecurrentUser.getUserName().compareTo(name) == 0)
+				.filter(thecurrentUser -> thecurrentUser.getUsername().compareTo(name) == 0)
 				.findFirst()
 				.orElse(null);
 		user.setEmail(email);

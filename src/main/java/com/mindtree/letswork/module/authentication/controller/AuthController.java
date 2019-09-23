@@ -1,16 +1,9 @@
 package com.mindtree.letswork.module.authentication.controller;
 
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 
 import javax.validation.Valid;
 
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -31,7 +24,6 @@ import com.mindtree.letswork.module.authentication.exception.InvalidInputExcepti
 import com.mindtree.letswork.module.authentication.exception.InvalidJWTToken;
 import com.mindtree.letswork.module.authentication.exception.InvalidReferralCodeException;
 import com.mindtree.letswork.module.authentication.service.AuthService;
-import com.mindtree.letswork.module.venue.util.DTOUtil;
 import com.mindtree.letswork.security.JwtCreator;
 
 @RestController
@@ -75,7 +67,7 @@ public class AuthController {
 
 	public User mapOntoUser(UserInputDTO userDTO) {
 		User user = new User();
-		user.setUserName(userDTO.getUsername());
+		user.setUsername(userDTO.getUsername());
 		user.setRealName(userDTO.getRealName());
 		user.setEmail(userDTO.getEmail());
 		user.setPassword(userDTO.getPassword());
