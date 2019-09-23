@@ -30,7 +30,7 @@ public class UserProfileControllerTest {
 	@Test
 	public void getUserByNameTest() {
 		User newUser = new User();
-		newUser.setUserName("Itachiark");
+		newUser.setUsername("Itachiark");
 		when(service.getUserByName("Itachiark")).thenReturn(newUser);
 		ResponseEntity<UserDTO> test = controller.getUserByName("Itachiark");
 		UserDTO testDTO = (UserDTO) utility.convert(newUser, UserDTO.class);

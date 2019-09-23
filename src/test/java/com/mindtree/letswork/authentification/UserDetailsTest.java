@@ -35,7 +35,7 @@ public class UserDetailsTest {
 	public void loadUserByUsernameValid() throws UsernameNotFoundException {
 		User user = new User(); 
 		String username = "MockUsername";
-		user.setUserName(username);
+		user.setUsername(username);
 		Mockito.when(service.login("MockUsername")).thenReturn(user);	
 		assertEquals(user, details.loadUserByUsername(username));
 	}
@@ -44,9 +44,9 @@ public class UserDetailsTest {
 	public void loaduserByUsernameValidException() {
 		User user = new User(); 
 		String username = "MockUsername";
-		user.setUserName(username);
+		user.setUsername(username);
 		User user2 = new User();
-		user2.setUserName("DifferentUsername");
+		user2.setUsername("DifferentUsername");
 		Mockito.when(service.login(username)).thenReturn(user);
 		
 		assertEquals("User does not exist.", details.loadUserByUsername("DifferentUsername"));
@@ -56,9 +56,9 @@ public class UserDetailsTest {
 	public void loaduserByUsernameInvalid() {
 		User user = new User(); 
 		String username = "MockUsername";
-		user.setUserName(username);
+		user.setUsername(username);
 		User user2 = new User();
-		user2.setUserName("DifferentUsername");
+		user2.setUsername("DifferentUsername");
 		Mockito.when(service.login(username)).thenReturn(user);
 		
 		assertNotEquals(user2, details.loadUserByUsername(username));
