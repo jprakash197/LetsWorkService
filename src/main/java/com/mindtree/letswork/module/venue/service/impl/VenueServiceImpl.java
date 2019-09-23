@@ -30,7 +30,7 @@ public class VenueServiceImpl implements VenueService {
 
 	@Override
 	public List<Venue> getFinalSearchedVenues(String type, Date date, int capacity, String city) throws VenueException {
-		List<Venue> venues = new ArrayList<Venue>();
+		List<Venue> venues = new ArrayList<>();
 		venues = venueRepo.findAll();
 
 		// check venue type
@@ -91,13 +91,6 @@ public class VenueServiceImpl implements VenueService {
 
 	@Override
 	public Venue getVenueDetails(int id) throws VenueException {
-//		Optional<Venue> venue = null;
-//		venue = venueRepo.findById(id).get();
-//		if (venue.isPresent()) {
-//			return venue.get();
-//		} else {
-//			throw new VenueNotFoundException("Venue Not Found");
-//		}
 		try {
 		Venue venue = venueRepo.findById(id).get();
 		return venue;

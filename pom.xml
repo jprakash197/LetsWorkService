@@ -37,7 +37,9 @@
 			**/module/userprofile/exception/*,
 			**/module/authentication/exception/*,
 			**/module/venue/exception/*,
-			**/module/details/exception/*
+			**/module/details/exception/*,
+			**/module/venue/exception/handler/*,
+			**/module/booking/exception/handler/*
 		</sonar.coverage.exclusions>
 	</properties>
 
