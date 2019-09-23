@@ -12,7 +12,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "User_details")
-public class User {
+public class UserDetails {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -28,7 +28,7 @@ public class User {
 	@Lob
 	private byte[] primaryImage;
 
-	public User(int id, String name, String email_id, byte[] primaryImage, String phone_number) {
+	public UserDetails(int id, String name, String email_id, byte[] primaryImage, String phone_number) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -86,7 +86,7 @@ public class User {
 	@Column(name = "PHONE_NUMBER")
 	private String phone_number;
 
-	public User() {
+	public UserDetails() {
 		super();
 	
 	}
@@ -111,7 +111,7 @@ public class User {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		User other = (User) obj;
+		UserDetails other = (UserDetails) obj;
 		if (email_id == null) {
 			if (other.email_id != null)
 				return false;

@@ -1,5 +1,6 @@
 package com.mindtree.letswork.module.authentication.service.impl;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,8 @@ public class AuthServiceImpl implements AuthService {
 
 	@Override
 	public User login(String username) {
-		return repo.findUserByUserName(username);
+		List<User> users = repo.findAll();
+		return users.stream().filter(user -> user.getUserName().equals(username)).findFirst().get();
 	}
 
 	@Override
