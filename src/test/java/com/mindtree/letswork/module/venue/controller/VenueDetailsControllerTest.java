@@ -1,11 +1,8 @@
 package com.mindtree.letswork.module.venue.controller;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import org.junit.Test;
@@ -19,7 +16,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.mindtree.letswork.constant.VenueFeatures;
 import com.mindtree.letswork.module.booking.entity.Booking;
-import com.mindtree.letswork.module.venue.controller.VenueController;
 import com.mindtree.letswork.module.venue.dto.VenueDTO;
 import com.mindtree.letswork.module.venue.entity.Image;
 import com.mindtree.letswork.module.venue.entity.Venue;

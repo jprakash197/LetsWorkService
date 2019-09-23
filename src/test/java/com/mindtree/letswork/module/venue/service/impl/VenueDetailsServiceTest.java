@@ -1,4 +1,4 @@
-package com.mindtree.letswork.venue.servicetest;
+package com.mindtree.letswork.module.venue.service.impl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
@@ -24,10 +24,9 @@ import com.mindtree.letswork.module.venue.entity.Venue;
 import com.mindtree.letswork.module.venue.exception.VenueException;
 import com.mindtree.letswork.module.venue.repository.VenueRepo;
 import com.mindtree.letswork.module.venue.service.VenueService;
-import com.mindtree.letswork.module.venue.service.impl.VenueServiceImpl;
 
 @RunWith(SpringRunner.class)
-public class VenueServiceTest {
+public class VenueDetailsServiceTest {
 	@TestConfiguration
 	static class VenueServiceContextConfig {
 		@Bean
@@ -69,6 +68,7 @@ public class VenueServiceTest {
 		assertEquals(cities.size(), 0);
 	}
 	
+	@SuppressWarnings("deprecation")
 	@Test
 	public void checkVenueDateDoesNotEqualPrice() throws VenueException {
 		Set<Image> img = new HashSet<>();

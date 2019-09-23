@@ -7,7 +7,6 @@ import java.util.Set;
 import com.mindtree.letswork.module.venue.entity.Venue;
 import com.mindtree.letswork.module.venue.exception.InvalidDateException;
 import com.mindtree.letswork.module.venue.exception.VenueException;
-import com.mindtree.letswork.module.venue.exception.VenueNotFoundException;
 
 public interface VenueService {
 	
