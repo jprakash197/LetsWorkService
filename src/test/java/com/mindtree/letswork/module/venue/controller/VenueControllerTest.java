@@ -16,6 +16,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -24,6 +25,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mindtree.letswork.constant.VenueFeatures;
 import com.mindtree.letswork.module.booking.entity.Booking;
 import com.mindtree.letswork.module.venue.dto.VenueDTO;
@@ -40,7 +42,7 @@ public class VenueControllerTest {
 
 	@Mock
 	private VenueServiceImpl venueService;
-	
+
 	@Mock
 	private DTOUtil dtoUtil;
 
@@ -85,7 +87,7 @@ public class VenueControllerTest {
 
 		mockMvc.perform(MockMvcRequestBuilders.get("/cities")).andExpect(MockMvcResultMatchers.status().isOk());
 	}
-	
+
 	@Test
 	public void getAllVenueTest() throws Exception {
 		List<Venue> venues = new ArrayList<>();
@@ -103,49 +105,70 @@ public class VenueControllerTest {
 		Mockito.when(venueService.getAllVenues()).thenReturn(venues);
 
 		assertEquals(venues.size(), 1);
-
-//		ResponseEntity<?> venuesReturned = venueController.getAllVenues();
-//		List<VenueDTO> venuesDto = new ArrayList<>();
-//		venues.forEach(venue -> venuesDto.add((VenueDTO) dtoUtil.convert(venue, VenueDTO.class)));
-//		assertEquals(venuesDto, venuesReturned.getBody());
 	}
 
 	@Test
 	public void postAVenueTest() throws VenueException {
-		VenueDTO venue = new VenueDTO();
-
+		VenueDTO venueDto = new VenueDTO();
+		Venue venue = new Venue();
 		venue.setVenueId(ThreadLocalRandom.current().nextInt(0, 100));
+		Mockito.when(this.venueService.insertVenue(venue)).thenReturn(venue);
+		venueDto = (VenueDTO) dtoUtil.convert(venue, VenueDTO.class);
+
+		String venueStr = "{\"venueId\":" + venue.getVenueId() + "}";
 
 		try {
-//			this.mockMvc.perform(MockMvcRequestBuilders.post("/venuesz", venue))
-//					.andExpect(MockMvcResultMatchers.status().is2xxSuccessful());
+			this.mockMvc.perform(
+					MockMvcRequestBuilders.post("/venuesz").contentType(MediaType.APPLICATION_JSON).content(venueStr))
+					.andExpect(MockMvcResultMatchers.status().isOk());
 		} catch (Exception e) {
-			throw new VenueException("Venue exception", e);
+			throw new VenueException("Venue exception: " + e.getMessage(), e);
 		}
-	
-//
-//		ResponseEntity<?> venueSaved = venueController.postVenue(venue);
-//
-//		assertEquals(venue, venueSaved.getBody());
+
+//		assertEquals(venue.getVenueId(), venueDto.getVenueId());
 	}
 
 	@Test
-	public void deleteAVenue() throws VenueException {	
-		VenueDTO venue = new VenueDTO();
-
+	public void putAVenueTest() throws VenueException {
+		VenueDTO venueDto = new VenueDTO();
+		Venue venue = new Venue();
 		venue.setVenueId(ThreadLocalRandom.current().nextInt(0, 100));
-		
+		boolean updateErrors = false;
+		Mockito.when(this.venueService.updateVenue(venue)).thenReturn(updateErrors);
+		venueDto = (VenueDTO) dtoUtil.convert(venue, VenueDTO.class);
+
+		String venueStr = "{\"venueId\":" + venue.getVenueId() + "}";
+
+		assertEquals(updateErrors, false);
+
 		try {
-//			this.mockMvc.perform(MockMvcRequestBuilders.delete("/venues", venue.getVenueId()))
-//					.andExpect(MockMvcResultMatchers.status().is2xxSuccessful());
-		} catch(Exception e) {
-			
+			this.mockMvc.perform(
+					MockMvcRequestBuilders.put("/venues").contentType(MediaType.APPLICATION_JSON).content(venueStr))
+					.andExpect(MockMvcResultMatchers.status().isOk());
+		} catch (Exception e) {
+			throw new VenueException("Venue exception: " + e.getMessage(), e);
 		}
 
-//		Venue v = (Venue) dtoUtil.convert(venue, Venue.class);
-//		Mockito.when(venueService.insertVenue(v)).thenReturn(v);
-//		ResponseEntity<?> venueDeleted = venueController.deleteVenue(venueId);
-//		assertEquals(venueDeleted, venueSaved);
 	}
-	
+
+	@Test
+	public void deleteAVenue() throws VenueException {
+		Venue venue = new Venue();
+		venue.setVenueId(ThreadLocalRandom.current().nextInt(0, 100));
+
+		boolean updateErrors = false;
+		Mockito.when(this.venueService.insertVenue(venue)).thenReturn(venue);
+		Mockito.when(this.venueService.deleteVenue(venue.getVenueId())).thenReturn(updateErrors);
+
+		try {
+			this.mockMvc
+					.perform(MockMvcRequestBuilders.delete("/venues/{venueId}", Integer.toString(venue.getVenueId()))
+							.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
+					.andExpect(MockMvcResultMatchers.status().is2xxSuccessful());
+		} catch (Exception e) {
+			throw new VenueException("Venue exception: " + e.getMessage(), e);
+		}
+
+	}
+
 }
