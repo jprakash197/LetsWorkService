@@ -40,7 +40,7 @@ public class VenueController {
 
 	@GetMapping("/venues/{capacity}/{city}/{venueType}/{date}")
 	public ResponseEntity<List<VenueDTO>> getVenues(@Valid @PathVariable int capacity, @PathVariable String city,@PathVariable String venueType, @PathVariable Date date) throws VenueException {
-		List<VenueDTO> venuesDto = new ArrayList<VenueDTO>();
+		List<VenueDTO> venuesDto = new ArrayList<>();
 		VenueRequestDTO details=new VenueRequestDTO(date,capacity,venueType,city);
 		venueService
 				.getFinalSearchedVenues(details.getVenueType(), details.getDate(), details.getCapacity(),
@@ -108,7 +108,7 @@ public class VenueController {
 	
 	@GetMapping("/venues")
 	public List<VenueDTO> getAllVenues() throws VenueException {
-		List<VenueDTO> venuesDto = new ArrayList<VenueDTO>();
+		List<VenueDTO> venuesDto = new ArrayList<>();
 		
 		StringBuilder exceptionMessage = new StringBuilder(); 
 		
