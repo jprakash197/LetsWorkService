@@ -43,8 +43,7 @@ public class PaymentController {
 	public CardDTO getCardDetails(@PathVariable String name) throws PaymentApplicationException 
 	{
 		Card card  = paymentService.getCardDetail(name);
-		CardDTO cardDto = (CardDTO) dToUtil.convert(card, CardDTO.class);
-		return cardDto;
+		return (CardDTO) dToUtil.convert(card, CardDTO.class);
 	}
 
 	

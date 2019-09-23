@@ -7,7 +7,6 @@ import java.util.Set;
 import com.mindtree.letswork.module.venue.entity.Venue;
 import com.mindtree.letswork.module.venue.exception.InvalidDateException;
 import com.mindtree.letswork.module.venue.exception.VenueException;
-import com.mindtree.letswork.module.venue.exception.VenueNotFoundException;
 
 public interface VenueService {
 	
@@ -23,8 +22,8 @@ public interface VenueService {
 	 * @param date
 	 * @param capacity
 	 * @param city
-	 * @return list of venues after searching
-	 * @throws VenueException 
+	 * @return list of venues after searching based on parameters
+	 * @throws VenueException
 	 */
 	public List<Venue> getFinalSearchedVenues(String type,Date date,int capacity,String city) throws VenueException;
 	
@@ -43,7 +42,6 @@ public interface VenueService {
 	/**
 	 * @param id
 	 * @return Venue having the given id 
-	 * @throws VenueNotFoundException 
 	 * @throws VenueException 
 	 */
 	public Venue getVenueDetails(int id) throws  VenueException;

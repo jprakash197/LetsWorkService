@@ -6,13 +6,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mindtree.letswork.module.authentication.dto.UserDTO;
-import com.mindtree.letswork.module.authentication.entity.User;
 import com.mindtree.letswork.module.userprofile.Utils.DTOUtils;
 import com.mindtree.letswork.module.userprofile.service.UserProfileService;
 
