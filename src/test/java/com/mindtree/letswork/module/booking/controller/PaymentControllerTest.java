@@ -1,6 +1,6 @@
-package com.mindtree.letswork.payment.controllertest;
+package com.mindtree.letswork.module.booking.controller;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
 
 import org.junit.Test;
@@ -11,7 +11,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.mindtree.letswork.module.authentication.entity.User;
-import com.mindtree.letswork.module.booking.controller.PaymentController;
 import com.mindtree.letswork.module.booking.dto.CardDTO;
 import com.mindtree.letswork.module.booking.dto.PaymentDTO;
 import com.mindtree.letswork.module.booking.entity.Card;
@@ -24,7 +23,6 @@ import com.mindtree.letswork.module.venue.util.DTOUtil;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class PaymentControllerTest {
-
 	@Autowired
 	private PaymentController paymentController;
 	@Autowired
@@ -51,4 +49,5 @@ public class PaymentControllerTest {
 		CardDTO cardDto = (CardDTO) dToUtil.convert(card, CardDTO.class);
 		assertEquals(cardDto, paymentController.getCardDetails(name));
 	}
+
 }

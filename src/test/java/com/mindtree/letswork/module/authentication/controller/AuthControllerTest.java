@@ -1,15 +1,6 @@
-/**
- * 
- */
-/**
- * @author M1053435
- *
- */
-package com.mindtree.letswork.authentification;
+package com.mindtree.letswork.module.authentication.controller;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 import java.io.IOException;
 
@@ -23,7 +14,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.mindtree.letswork.module.authentication.controller.AuthController;
 import com.mindtree.letswork.module.authentication.dto.UserInputDTO;
 import com.mindtree.letswork.module.authentication.dto.UserOutputDTO;
 import com.mindtree.letswork.module.authentication.entity.User;
@@ -39,7 +29,7 @@ import com.mindtree.letswork.security.JwtCreator;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class AuthControllerTest {
-
+	
 	@Autowired
 	AuthController controller;
 

@@ -1,7 +1,6 @@
-package com.mindtree.letswork.authentification;
+package com.mindtree.letswork.module.authentication.service.impl;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,12 +14,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.mindtree.letswork.module.authentication.entity.User;
 import com.mindtree.letswork.module.authentication.repository.UserRepo;
 import com.mindtree.letswork.module.authentication.service.AuthService;
-import com.mindtree.letswork.module.authentication.service.impl.UserDetailsServiceImp;
-
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class UserDetailsTest {
+public class UserDetailsServiceImpTest {
+
 	
 	@Autowired
 	UserDetailsServiceImp details;

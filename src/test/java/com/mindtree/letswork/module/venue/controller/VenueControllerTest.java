@@ -1,4 +1,4 @@
-package com.mindtree.letswork.venue.controllertest;
+package com.mindtree.letswork.module.venue.controller;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -13,7 +13,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -23,15 +22,13 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.mindtree.letswork.constant.VenueFeatures;
 import com.mindtree.letswork.module.booking.entity.Booking;
-import com.mindtree.letswork.module.venue.controller.VenueController;
 import com.mindtree.letswork.module.venue.entity.Image;
 import com.mindtree.letswork.module.venue.entity.Venue;
 import com.mindtree.letswork.module.venue.service.impl.VenueServiceImpl;
 import com.mindtree.letswork.module.venue.util.DTOUtil;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
-public class VenueSearchControllerTest {
+public class VenueControllerTest {
 
 	private MockMvc mockMvc;
 
@@ -82,4 +79,5 @@ public class VenueSearchControllerTest {
 
 		mockMvc.perform(MockMvcRequestBuilders.get("/cities")).andExpect(MockMvcResultMatchers.status().isOk());
 	}
+
 }

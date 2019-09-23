@@ -1,6 +1,6 @@
-package com.mindtree.letswork.venue.repositorytest;
+package com.mindtree.letswork.module.venue.repository;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,7 +10,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.mindtree.letswork.module.venue.entity.Venue;
-import com.mindtree.letswork.module.venue.repository.VenueRepo;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest

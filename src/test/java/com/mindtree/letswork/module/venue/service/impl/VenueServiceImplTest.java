@@ -1,8 +1,6 @@
-package com.mindtree.letswork.venue.servicetest;
+package com.mindtree.letswork.module.venue.service.impl;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -25,11 +23,9 @@ import com.mindtree.letswork.module.venue.entity.Venue;
 import com.mindtree.letswork.module.venue.exception.InvalidDateException;
 import com.mindtree.letswork.module.venue.exception.VenueException;
 import com.mindtree.letswork.module.venue.repository.VenueRepo;
-import com.mindtree.letswork.module.venue.service.impl.VenueServiceImpl;
 
 @RunWith(SpringRunner.class)
-public class VenueSearchServiceTest {
-
+public class VenueServiceImplTest {
 	@InjectMocks
 	private VenueServiceImpl venueService;
 
@@ -155,5 +151,6 @@ public class VenueSearchServiceTest {
 		assertEquals(VenueException.class,
 				venueService.getFinalSearchedVenues("Meeting", date, 100, "Bangalore"));
 	}
+
 
 }

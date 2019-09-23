@@ -1,4 +1,5 @@
-package com.mindtree.letswork.payment.servicetest;
+package com.mindtree.letswork.module.booking.service.impl;
+
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
 
@@ -17,11 +18,11 @@ import com.mindtree.letswork.module.booking.exception.InvalidExpiryDateException
 import com.mindtree.letswork.module.booking.exception.RecordNotFoundException;
 import com.mindtree.letswork.module.booking.repository.CardRepo;
 import com.mindtree.letswork.module.booking.repository.PaymentRepo;
-import com.mindtree.letswork.module.booking.service.impl.PaymentServiceImpl;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class PaymentServiceTest {
+public class PaymentServiceImplTest {
+
 	@MockBean
 	CardRepo cardRepository;
 	
@@ -101,7 +102,4 @@ public class PaymentServiceTest {
 	 			e.printStackTrace();
 	 		}		
 		 }
-		
-	}
-
-
+}

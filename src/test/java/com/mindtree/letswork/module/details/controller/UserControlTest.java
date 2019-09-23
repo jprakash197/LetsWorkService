@@ -1,6 +1,6 @@
-package com.mindtree.letswork.aboutus;
+package com.mindtree.letswork.module.details.controller;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
@@ -13,15 +13,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.mindtree.letswork.module.details.controller.UserControl;
 import com.mindtree.letswork.module.details.dto.UserDto;
 import com.mindtree.letswork.module.details.entity.UserDetails;
 import com.mindtree.letswork.module.details.repository.User1Repository;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class LetsWorkAboutUsControllerTest {
-
+public class UserControlTest {
 	@Autowired
 	private UserControl userControl;
 
