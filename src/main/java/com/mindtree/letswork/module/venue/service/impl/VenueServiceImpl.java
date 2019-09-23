@@ -60,16 +60,16 @@ public class VenueServiceImpl implements VenueService {
 		return venues;
 	}
 
-	private boolean checkDate(Date date) throws CityNotFoundException {
-		java.util.Date utilDate = new java.util.Date(date.getTime());
+	@SuppressWarnings("deprecation")
+	public boolean checkDate(Date date) {
 		java.util.Date currentDate = new java.util.Date();
-		if (currentDate.getDate() > utilDate.getDate()) {
-			System.out.println("" + currentDate + utilDate);
+		Date formattedDate = new Date(currentDate.getYear(), currentDate.getMonth(), currentDate.getDate());
+		if (formattedDate.compareTo(date) > 0)
 			return false;
-		}
 		return true;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public boolean checkAvailability(Venue venue, java.sql.Date date) {
 		boolean booked = true;

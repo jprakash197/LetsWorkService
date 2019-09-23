@@ -11,16 +11,6 @@ import com.mindtree.letswork.module.authentication.entity.User;
 @Service
 public interface UserProfileService {
 
-	String addUser(User user);
-
-//	String addRoom(Room room);
-
-//	String addBooking(Booking booking);
-	
-	String updateUser(User user);
-	
-//	String updateRoom(Room room);
-
 	User getUserByName(String name);
 
 	void editUserEmail(String email, String name);

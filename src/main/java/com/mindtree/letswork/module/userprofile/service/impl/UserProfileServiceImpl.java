@@ -18,11 +18,6 @@ public class UserProfileServiceImpl implements UserProfileService {
 
 	@Autowired
 	UserRepo userRepo;
-	
-	@Override
-	public String updateUser(User user) {
-		return null;
-	}
 
 	@Override
 	public User getUserByName(String name) {
@@ -39,12 +34,6 @@ public class UserProfileServiceImpl implements UserProfileService {
 				.findFirst()
 				.orElse(null);
 		return user;
-	}
-	
-	@Override
-	public String addUser(User user) {
-		userRepo.save(user);
-		return "saved";
 	}
 
 	@Override

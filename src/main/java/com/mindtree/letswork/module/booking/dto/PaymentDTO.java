@@ -14,18 +14,18 @@ public class PaymentDTO {
 	@Valid
 	private Card card;
 	
-//	private User user;
+	private User user;
 
 	public PaymentDTO() {
 
 	}
 
-	public PaymentDTO(int paymentId, String paymentMode, Card card) {
+	public PaymentDTO(int paymentId, String paymentMode, Card card, User user) {
 		super();
 		this.paymentId = paymentId;
 		this.paymentMode = paymentMode;
 		this.card = card;
-//		this.user=user;
+		this.user=user;
 	}
 
 	public int getPaymentId() {
@@ -52,14 +52,14 @@ public class PaymentDTO {
 		this.card = card;
 	}
 
-//	public User getUser() {
-//		return user;
-//	}
-//
-//	public void setUser(User user) {
-//		this.user = user;
-//	}
-//	
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+	
 	
 
 }
