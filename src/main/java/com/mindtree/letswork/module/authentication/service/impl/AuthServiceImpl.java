@@ -30,8 +30,7 @@ public class AuthServiceImpl implements AuthService {
 
 	@Override
 	public User login(String username) {
-		List<User> users = repo.findAll();
-		return users.stream().filter(user -> user.getUsername().equals(username)).findFirst().get();
+		return repo.findUserByUserName(username);
 	}
 
 	@Override
