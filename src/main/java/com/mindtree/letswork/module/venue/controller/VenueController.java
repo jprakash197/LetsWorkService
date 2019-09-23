@@ -1,6 +1,7 @@
 package com.mindtree.letswork.module.venue.controller;
 
 import java.io.UnsupportedEncodingException;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -38,9 +38,10 @@ public class VenueController {
 	@Autowired
 	private DTOUtil dtoUtil;
 
-	@PostMapping("/venues")
-	public ResponseEntity<?> getVenues(@Valid @RequestBody VenueRequestDTO details) throws VenueException {
+	@GetMapping("/venues/{capacity}/{city}/{venueType}/{date}")
+	public ResponseEntity<List<VenueDTO>> getVenues(@Valid @PathVariable int capacity, @PathVariable String city,@PathVariable String venueType, @PathVariable Date date) throws VenueException {
 		List<VenueDTO> venuesDto = new ArrayList<VenueDTO>();
+		VenueRequestDTO details=new VenueRequestDTO(date,capacity,venueType,city);
 		venueService
 				.getFinalSearchedVenues(details.getVenueType(), details.getDate(), details.getCapacity(),
 						details.getCity())
@@ -50,7 +51,7 @@ public class VenueController {
 			return ResponseEntity.ok().body(venuesDto);
 
 		else
-			return ResponseEntity.ok().body("No venues available currently");
+			throw new VenueNotFoundException("No venues available");
 
 	}
 	
@@ -83,7 +84,6 @@ public class VenueController {
 
 	@GetMapping("/getDetails/{id}")
 	public ResponseEntity<?> getDetails(@PathVariable int id) throws VenueException {
-		System.out.println("id is "+1);
 		Venue venue = venueService.getVenueDetails(id);
 		VenueDTO venueDto = (VenueDTO) dtoUtil.convert(venue, VenueDTO.class);
 		List<String> photo = new ArrayList<>();

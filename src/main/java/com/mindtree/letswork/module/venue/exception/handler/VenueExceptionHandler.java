@@ -43,7 +43,7 @@ public class VenueExceptionHandler extends ResponseEntityExceptionHandler {
 	}
 
 	@ExceptionHandler(VenueNotFoundException.class)
-	public ResponseEntity<?> VenueExceptionHandler(VenueNotFoundException ex, WebRequest request) {
+	public ResponseEntity<?> venueExceptionHandler(VenueNotFoundException ex, WebRequest request) {
 		CustomVenueException errorDetails = new CustomVenueException(ex.getMessage(), new Date(),
 				request.getDescription(false));
 		return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);

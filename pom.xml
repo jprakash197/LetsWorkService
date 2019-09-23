@@ -20,14 +20,24 @@
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<sonar.host.url>
-			http://glcdevops.southindia.cloudapp.azure.com:51002/sonar
+			http://localhost:8081
 		</sonar.host.url>
 		<sonar.coverage.exclusions>
-			src/main/java/com/mindtree/letswork/module/booking/entity/*.java,
-			src/main/java/com/mindtree/letswork/module/authentication/entity/*.java,
-			src/main/java/com/mindtree/letswork/module/venue/entity/*.java,
-			src/main/java/com/mindtree/letswork/module/details/entity/*.java,
-			src/main/java/com/mindtree/letswork/module/userprofile/entity/*.java
+			**/module/booking/entity/*.java,
+			**/module/authentication/entity/*.java,
+			**/module/venue/entity/*.java,
+			**/module/details/entity/*.java,
+			**/module/userprofile/entity/*.java,
+			**/module/booking/dto/*.java,
+			**/module/userprofile/dto/*.java,
+			**/module/authentication/dto/*.java,
+			**/module/venue/dto/*.java,
+			**/module/details/dto/*.java,
+			**/module/booking/exception/*,
+			**/module/userprofile/exception/*,
+			**/module/authentication/exception/*,
+			**/module/venue/exception/*,
+			**/module/details/exception/*
 		</sonar.coverage.exclusions>
 	</properties>
 
@@ -185,11 +195,21 @@
 						</goals>
 						<configuration>
 							<excludes>
-								<exclude>src/main/java/com/mindtree/letswork/module/booking/entity/*.java</exclude>
-								<exclude>src/main/java/com/mindtree/letswork/module/authentication/entity/*.java</exclude>
-								<exclude>src/main/java/com/mindtree/letswork/module/venue/entity/*.java</exclude>
-								<exclude>src/main/java/com/mindtree/letswork/module/details/entity/*.java</exclude>
-								<exclude>src/main/java/com/mindtree/letswork/module/userprofile/entity/*.java</exclude>
+								<exclude>com/mindtree/letswork/module/booking/entity/*.java</exclude>
+								<exclude>com/mindtree/letswork/module/authentication/entity/*.java</exclude>
+								<exclude>com/mindtree/letswork/module/venue/entity/*.java</exclude>
+								<exclude>com/mindtree/letswork/module/details/entity/*.java</exclude>
+								<exclude>com/mindtree/letswork/module/userprofile/entity/*.java</exclude>
+								<exclude>com/mindtree/letswork/module/booking/dto/*.java</exclude>
+								<exclude>com/mindtree/letswork/module/authentication/dto/*.java</exclude>
+								<exclude>com/mindtree/letswork/module/venue/dto/*.java</exclude>
+								<exclude>com/mindtree/letswork/module/details/dto/*.java</exclude>
+								<exclude>com/mindtree/letswork/module/userprofile/dto/*.java</exclude>
+								<exclude>com/mindtree/letswork/module/booking/exception/*</exclude>
+								<exclude>com/mindtree/letswork/module/authentication/exception/*</exclude>
+								<exclude>com/mindtree/letswork/module/venue/exception/*</exclude>
+								<exclude>com/mindtree/letswork/module/details/exception/*</exclude>
+								<exclude>com/mindtree/letswork/module/userprofile/exception/*</exclude>
 							</excludes>
 							<!-- Sets the path to the file which contains the execution data. -->
 							<dataFile>target/jacoco.exec</dataFile>

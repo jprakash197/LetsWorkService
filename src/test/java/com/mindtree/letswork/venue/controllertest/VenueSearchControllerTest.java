@@ -27,6 +27,7 @@ import com.mindtree.letswork.module.venue.controller.VenueController;
 import com.mindtree.letswork.module.venue.entity.Image;
 import com.mindtree.letswork.module.venue.entity.Venue;
 import com.mindtree.letswork.module.venue.service.impl.VenueServiceImpl;
+import com.mindtree.letswork.module.venue.util.DTOUtil;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -36,6 +37,9 @@ public class VenueSearchControllerTest {
 
 	@Mock
 	private VenueServiceImpl venueService;
+	
+	@Mock
+	private DTOUtil dtoUtil;
 
 	@InjectMocks
 	private VenueController venueController;
@@ -49,8 +53,7 @@ public class VenueSearchControllerTest {
 	@Test
 	public void getVenuesTest() throws Exception {
 
-		String json = "{\r\n" + "  \"capacity\": 100,\r\n" + "  \"city\": \"Bangalore\",\r\n"
-				+ "  \"date\": \"2019-09-20\",\r\n" + "  \"venueType\": \"Meeting\"\r\n" + "}";
+		String request = "/venues/100/Bangalore/Meeting/2020-09-20";
 		Set<Booking> bookings = new HashSet<>();
 		Set<Image> images = new HashSet<>();
 		Set<VenueFeatures> features = new HashSet<>();
@@ -64,10 +67,9 @@ public class VenueSearchControllerTest {
 
 		java.sql.Date date = Date.valueOf("2020-09-20");
 		Mockito.when(venueService.getFinalSearchedVenues("Meeting", date, 100, "Bangalore")).thenReturn(venues);
-		mockMvc.perform(MockMvcRequestBuilders.post("/venues").contentType(MediaType.APPLICATION_JSON).content(json))
+		mockMvc.perform(MockMvcRequestBuilders.get(request).accept(MediaType.APPLICATION_JSON))
 				.andExpect(MockMvcResultMatchers.status().isOk());
 
-		
 	}
 
 	@Test
@@ -78,7 +80,6 @@ public class VenueSearchControllerTest {
 		citiesResult.add("Bhubaneswar");
 		Mockito.when(venueService.getCities()).thenReturn(citiesResult);
 
-		mockMvc.perform(MockMvcRequestBuilders.get("/venues"))
-				.andExpect(MockMvcResultMatchers.status().is2xxSuccessful());
+		mockMvc.perform(MockMvcRequestBuilders.get("/cities")).andExpect(MockMvcResultMatchers.status().isOk());
 	}
 }

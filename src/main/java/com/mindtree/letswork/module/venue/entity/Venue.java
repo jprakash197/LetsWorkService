@@ -2,7 +2,6 @@ package com.mindtree.letswork.module.venue.entity;
 
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;

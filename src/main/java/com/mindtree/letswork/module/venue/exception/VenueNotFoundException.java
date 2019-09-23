@@ -23,7 +23,6 @@ public class VenueNotFoundException extends VenueException {
 
 	public VenueNotFoundException(Throwable arg0) {
 		super(arg0);
-		// TODO Auto-generated constructor stub
 	}
 
 }
