@@ -95,10 +95,7 @@ public class VenueController {
 
 	@GetMapping("/getDetails/{id}")
 	public ResponseEntity<?> getDetails(@PathVariable int id) throws VenueException {
-<<<<<<< HEAD
 		System.out.println("id is " + id);
-=======
->>>>>>> cec3a29b976ba51fa2477f7b12b86e8247ca69fe
 		Venue venue = venueService.getVenueDetails(id);
 		VenueDTO venueDto = (VenueDTO) dtoUtil.convert(venue, VenueDTO.class);
 		List<String> photo = new ArrayList<>();
@@ -124,19 +121,11 @@ public class VenueController {
 	}
 
 	@GetMapping("/venues")
-<<<<<<< HEAD
 	public ResponseEntity<?> getAllVenues() throws VenueException {
-		List<VenueDTO> venuesDto = new ArrayList<VenueDTO>();
-
-		StringBuilder exceptionMessage = new StringBuilder();
-
-=======
-	public List<VenueDTO> getAllVenues() throws VenueException {
 		List<VenueDTO> venuesDto = new ArrayList<>();
 		
 		StringBuilder exceptionMessage = new StringBuilder(); 
 		
->>>>>>> cec3a29b976ba51fa2477f7b12b86e8247ca69fe
 		this.venueService.getAllVenues().forEach(venue -> {
 			List<String> photo = new ArrayList<>();
 			Set<Image> image = venue.getImages();
