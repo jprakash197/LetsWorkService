@@ -91,12 +91,20 @@ public class VenueServiceImpl implements VenueService {
 
 	@Override
 	public Venue getVenueDetails(int id) throws VenueException {
-		Optional<Venue> venue = null;
-		venue = venueRepo.findById(id);
-		if (venue.isPresent()) {
-			return venue.get();
-		} else {
-			throw new VenueNotFoundException("Venue Not Found");
+//		Optional<Venue> venue = null;
+//		venue = venueRepo.findById(id).get();
+//		if (venue.isPresent()) {
+//			return venue.get();
+//		} else {
+//			throw new VenueNotFoundException("Venue Not Found");
+//		}
+		try {
+		Venue venue = venueRepo.findById(id).get();
+		return venue;
+		}
+		catch(Exception ex){
+			throw new VenueNotFoundException("Venue not found");
+		
 		}
 	}
 

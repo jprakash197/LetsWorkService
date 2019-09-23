@@ -90,20 +90,6 @@ public class Venue {
 		this.feature = feature;
 	}
 
-	public Venue(String venueName, String city, String address, double size, int capacity, String description,
-			int rating, double price, String venueType) {
-		super();
-		this.venueName = venueName;
-		this.city = city;
-		this.address = address;
-		this.size = size;
-		this.capacity = capacity;
-		this.description = description;
-		this.rating = rating;
-		this.price = price;
-		this.venueType = venueType;
-		
-	}
 
 	public int getVenueId() {
 		return venueId;
