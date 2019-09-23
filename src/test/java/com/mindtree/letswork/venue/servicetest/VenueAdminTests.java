@@ -1,4 +1,4 @@
-package com.mindtree.letswork;
+package com.mindtree.letswork.venue.servicetest;
 
 import static org.junit.Assert.assertEquals;
 
