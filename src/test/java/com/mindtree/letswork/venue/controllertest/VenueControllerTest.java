@@ -1,14 +1,12 @@
 package com.mindtree.letswork.venue.controllertest;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.stream.Collectors;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -24,8 +22,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import com.mindtree.letswork.constant.VenueFeatures;
 import com.mindtree.letswork.module.booking.entity.Booking;
@@ -49,7 +45,7 @@ public class VenueControllerTest {
 
 	@MockBean
 	private DTOUtil dtoutil;
-	
+
 	private MockMvc mockMvc;
 
 	@Before
@@ -57,7 +53,7 @@ public class VenueControllerTest {
 		MockitoAnnotations.initMocks(this);
 		mockMvc = MockMvcBuilders.standaloneSetup(venueController).build();
 	}
-	
+
 	@Test
 	public void getDetailsTest() throws VenueException {
 		Set<Image> img = new HashSet<>();
@@ -74,47 +70,61 @@ public class VenueControllerTest {
 	@Test
 	public void getAllVenueTest() throws Exception {
 		List<Venue> venues = new ArrayList<>();
-		VenueDTO venue1 = new VenueDTO(
-				ThreadLocalRandom.current().nextInt(0, 100),
-				"Cow", "Mumbai", "666 W Fleet Street",
-				ThreadLocalRandom.current().nextDouble(0, 50),
-				ThreadLocalRandom.current().nextInt(0, 100),
-				"COWOWOWOWOWOWOWOWOWOWOWOWOW",
-				ThreadLocalRandom.current().nextInt(0, 10),
-				ThreadLocalRandom.current().nextDouble(0, 10000),
+		VenueDTO venue1 = new VenueDTO(ThreadLocalRandom.current().nextInt(0, 100), "Cow", "Mumbai",
+				"666 W Fleet Street", ThreadLocalRandom.current().nextDouble(0, 50),
+				ThreadLocalRandom.current().nextInt(0, 100), "COWOWOWOWOWOWOWOWOWOWOWOWOW",
+				ThreadLocalRandom.current().nextInt(0, 10), ThreadLocalRandom.current().nextDouble(0, 10000),
 				"Conference", null, null);
-		
+
 		venues.add((Venue) dtoutil.convert(venue1, Venue.class));
-		
+
 		this.mockMvc.perform(MockMvcRequestBuilders.get("/venues"))
-			.andExpect(MockMvcResultMatchers.status().is2xxSuccessful());
-		
-//		List<Venue> venuesReturned = venueService.getAllVenues();
+				.andExpect(MockMvcResultMatchers.status().is2xxSuccessful());
+
 		Mockito.when(venueService.getAllVenues()).thenReturn(venues);
 
 		assertEquals(venues.size(), 1);
-		
+
 		ResponseEntity<?> venuesReturned = venueController.getAllVenues();
+		List<VenueDTO> venuesDto = new ArrayList<>();
+		venues.forEach(venue -> venuesDto.add((VenueDTO) dtoutil.convert(venue, VenueDTO.class)));
+		assertEquals(venuesDto, venuesReturned.getBody());
 	}
 
-//	@Test
-//	public void postAVenue() throws VenueException {
-//		VenueDTO venue = new VenueDTO();
-//
+	@Test
+	public void postAVenueTest() throws VenueException {
+		VenueDTO venue = new VenueDTO();
+
+		venue.setVenueId(ThreadLocalRandom.current().nextInt(0, 100));
+
+		try {
+			this.mockMvc.perform(MockMvcRequestBuilders.post("/venuesz", venue))
+					.andExpect(MockMvcResultMatchers.status().is2xxSuccessful());
+		} catch (Exception e) {
+//			assertEquals(expected, actual);
+		}
+
 //		ResponseEntity<?> venueSaved = venueController.postVenue(venue);
 //
 //		assertEquals(venue, venueSaved.getBody());
-//	}
-//
-//	@Test
-//	public void deleteAVenue() throws VenueException {
-//		VenueDTO venue = new VenueDTO();
-//		final int venueId = this.venueService.getAllVenues().size() + 1;
-//		venue.setVenueId(venueId);
-//
+	}
+
+	@Test
+	public void deleteAVenue() throws VenueException {	
+		VenueDTO venue = new VenueDTO();
+
+		venue.setVenueId(ThreadLocalRandom.current().nextInt(0, 100));
+		
+		try {
+			this.mockMvc.perform(MockMvcRequestBuilders.delete("/venues", venue))
+					.andExpect(MockMvcResultMatchers.status().is2xxSuccessful());
+		} catch(Exception e) {
+			
+		}
+
 //		ResponseEntity<?> venueSaved = venueController.postVenue(venue);
 //		ResponseEntity<?> venueDeleted = venueController.deleteVenue(venueId);
 //		assertEquals(venueDeleted, venueSaved);
-//	}
-	
+	}
+
 }
