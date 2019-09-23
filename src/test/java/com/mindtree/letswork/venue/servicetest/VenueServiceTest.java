@@ -4,7 +4,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -12,13 +14,16 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.mindtree.letswork.constant.VenueFeatures;
 import com.mindtree.letswork.module.booking.entity.Booking;
+import com.mindtree.letswork.module.venue.dto.VenueDTO;
 import com.mindtree.letswork.module.venue.entity.Image;
 import com.mindtree.letswork.module.venue.entity.Venue;
 import com.mindtree.letswork.module.venue.exception.VenueException;
@@ -27,6 +32,7 @@ import com.mindtree.letswork.module.venue.service.VenueService;
 import com.mindtree.letswork.module.venue.service.impl.VenueServiceImpl;
 
 @RunWith(SpringRunner.class)
+@SpringBootTest
 public class VenueServiceTest {
 	@TestConfiguration
 	static class VenueServiceContextConfig {
@@ -97,16 +103,24 @@ public class VenueServiceTest {
 		assertNotEquals(venueFound.getPrice(), venueFound.getAddress());
 	}
 
-	
 //	@Test
 //	public void getAllVenueTest() throws VenueException {
 //		final int TOTAL_VENUES = 21;
 //		List<VenueDTO> venues = new ArrayList<>();
-//		when(venueRepo.findAll().size()).thenReturn(21);
+//		Mockito.when(venueRepo.findAll().size()).thenReturn(21);
 //
 //		venues = venueController.getAllVenues();
 //
 //		assertNotEquals(venues.size(), 0);
-//
 //	}
+//	
+//	@Test
+//	public void postAVenue() throws VenueException {
+//		VenueDTO venue = new VenueDTO();
+//		
+//		ResponseEntity<?> venueSaved = venueController.postVenue(venue);
+//
+//		assertEquals(venue, venueSaved.getBody());
+//	}
+
 }

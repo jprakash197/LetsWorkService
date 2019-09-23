@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -49,9 +50,19 @@ public class VenueController {
 
 		if (venuesDto.size() != 0)
 			return ResponseEntity.ok().body(venuesDto);
-
 		else
 			throw new VenueNotFoundException("No venues available");
+
+	}
+	
+	@PostMapping("/venuesz")
+	public ResponseEntity<?> postVenue(@Valid @RequestBody VenueDTO venue) throws VenueException {
+		Venue venueSaved = this.venueService.insertVenue((Venue) dtoUtil.convert(venue, Venue.class));
+
+		if (venueSaved != null)
+			return ResponseEntity.ok().body((VenueDTO) dtoUtil.convert(venueSaved, VenueDTO.class));
+		else
+			return ResponseEntity.ok().body("Venue failed to save: " + venue);
 
 	}
 	

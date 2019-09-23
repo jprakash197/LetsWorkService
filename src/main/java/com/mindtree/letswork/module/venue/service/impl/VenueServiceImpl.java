@@ -8,11 +8,14 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mindtree.letswork.module.booking.entity.Booking;
+import com.mindtree.letswork.module.venue.dto.VenueDTO;
 import com.mindtree.letswork.module.venue.entity.Venue;
 import com.mindtree.letswork.module.venue.exception.CityNotFoundException;
 import com.mindtree.letswork.module.venue.exception.InvalidDateException;
@@ -126,5 +129,15 @@ public class VenueServiceImpl implements VenueService {
 			throw new ServiceException("Service operation \'delete\' failed: venueId: " + venueId);
 		}
 		return true;
+	}
+
+	public Venue insertVenue(Venue venue) {
+		Venue venueSave = null;
+		try {
+			venueSave = this.venueRepo.save(venue);
+		} catch (IllegalArgumentException e) {
+			throw new ServiceException("Service operation \'delete\' failed: venueId: " + venue);
+		}
+		return venueSave;
 	}
 }

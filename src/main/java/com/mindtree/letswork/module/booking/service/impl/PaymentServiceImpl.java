@@ -3,8 +3,6 @@ package com.mindtree.letswork.module.booking.service.impl;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-import javax.mail.MessagingException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
