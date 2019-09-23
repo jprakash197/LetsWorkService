@@ -61,7 +61,7 @@ public class AuthControllerTest {
 	@Test
 	public void login() throws IncorrectPasswordException, UsernameNotFoundException, InvalidJWTToken {
 		User user = new User();
-		user.setUserName("MockUsername");
+		user.setUsername("MockUsername");
 		user.setPassword("M10534adeT");
 		String token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyMSIsImlhdCI6MTU2ODIwNDI5MiwiZXhwIjoxNTY4MjA0NDEyfQ.9F__uC8YYLtwY-URoKZUwQMNfymoJK0mWntxYyekX6YmVL7AHdFxLS0mLKEVwHyY-qzHu-En5G6gK-CS1S4uAg";
 		Mockito.when(detailsService.loadUserByUsername("MockUsername")).thenReturn(user);
@@ -92,7 +92,7 @@ public class AuthControllerTest {
 		assertNotNull(user);
 		assertEquals(user.getPassword(), userDTO.getPassword());
 		assertEquals(user.getEmail(), userDTO.getEmail());
-		assertEquals(user.getUserName(), userDTO.getUsername());
+		assertEquals(user.getUsername(), userDTO.getUsername());
 		assertEquals(user.getRealName(), userDTO.getRealName());
 		assertEquals(user.getReferredCode(), userDTO.getReferredCode());
 	}
@@ -113,7 +113,7 @@ public class AuthControllerTest {
 		User user = new User();
 		user.setEmail(email);
 		user.setRealName(name);
-		user.setUserName(username);
+		user.setUsername(username);
 		user.setPassword(password);
 		user.setReferredCode(ref);
 

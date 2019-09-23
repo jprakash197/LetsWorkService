@@ -42,7 +42,7 @@ public class AuthServiceTest {
 	@Test
 	public void loginValid() {
 		User user = new User();
-		user.setUserName("MockUsername");
+		user.setUsername("MockUsername");
 		Mockito.when(userRepo.findUserByUserName("MockUsername")).thenReturn(user);
 		assertEquals(user, service.login("MockUsername"));
 	}
@@ -50,9 +50,9 @@ public class AuthServiceTest {
 	@Test 
 	public void loginInvalid() {
 		User user = new User();
-		user.setUserName("MockUsername");
+		user.setUsername("MockUsername");
 		User user2 = new User();
-		user2.setUserName("DifferentUsername");
+		user2.setUsername("DifferentUsername");
 		Mockito.when(userRepo.findUserByUserName("MockUsername")).thenReturn(user);
 
 		assertNotEquals(user2, service.login("Mockusername"));
@@ -127,7 +127,7 @@ public class AuthServiceTest {
 	public void isUsernameAvailableValidFalse() {
 		String username = "MockUsername";
 		User user = new User();
-		user.setUserName(username);
+		user.setUsername(username);
 		Mockito.when(userRepo.findUserByUserName(username)).thenReturn(user);
 
 		assertEquals(false, service.isUsernameAvailable(username));
@@ -138,7 +138,7 @@ public class AuthServiceTest {
 		String username = "MockUsername";
 		String wrongUsername = "DifferentUsername";
 		User user = new User();
-		user.setUserName(username);
+		user.setUsername(username);
 		Mockito.when(userRepo.findUserByUserName(username)).thenReturn(user);
 
 		assertEquals(true, service.isUsernameAvailable(wrongUsername));
@@ -149,7 +149,7 @@ public class AuthServiceTest {
 		String username = "MockUsername";
 		String wrongUsername = "DifferentUsername";
 		User user = new User();
-		user.setUserName(username);
+		user.setUsername(username);
 		Mockito.when(userRepo.findUserByUserName(username)).thenReturn(user);
 
 		assertNotEquals(false, service.isUsernameAvailable(wrongUsername));

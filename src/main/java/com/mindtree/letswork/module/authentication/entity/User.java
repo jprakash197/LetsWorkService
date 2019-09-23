@@ -76,11 +76,7 @@ public class User implements UserDetails {
 		this.referralCode = refCode;
 	}
 
-	public String getUserName() {
-		return username;
-	}
-
-	public void setUserName(String userName) {
+	public void setUsername(String userName) {
 		this.username = userName;
 	}
 
@@ -214,7 +210,7 @@ public class User implements UserDetails {
 
 	@Override
 	public String getUsername() {
-		return null;
+		return this.username;
 	}
 
 	@Override
