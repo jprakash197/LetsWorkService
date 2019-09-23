@@ -1,4 +1,4 @@
-package com.mindtree.letswork;
+package com.mindtree.letswork.authentification;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
@@ -25,7 +25,7 @@ import com.mindtree.letswork.security.JwtCreator;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class AuthentificationJunitTest {
+public class AuthServiceTest {
 
 	@Autowired
 	AuthService service;
@@ -42,18 +42,17 @@ public class AuthentificationJunitTest {
 	@Test
 	public void loginValid() {
 		User user = new User();
-		user.setUserName("MockUsername");
+		user.setUsername("MockUsername");
 		Mockito.when(userRepo.findUserByUserName("MockUsername")).thenReturn(user);
-
 		assertEquals(user, service.login("MockUsername"));
 	}
 	
 	@Test 
 	public void loginInvalid() {
 		User user = new User();
-		user.setUserName("MockUsername");
+		user.setUsername("MockUsername");
 		User user2 = new User();
-		user2.setUserName("DifferentUsername");
+		user2.setUsername("DifferentUsername");
 		Mockito.when(userRepo.findUserByUserName("MockUsername")).thenReturn(user);
 
 		assertNotEquals(user2, service.login("Mockusername"));
@@ -128,7 +127,7 @@ public class AuthentificationJunitTest {
 	public void isUsernameAvailableValidFalse() {
 		String username = "MockUsername";
 		User user = new User();
-		user.setUserName(username);
+		user.setUsername(username);
 		Mockito.when(userRepo.findUserByUserName(username)).thenReturn(user);
 
 		assertEquals(false, service.isUsernameAvailable(username));
@@ -139,7 +138,7 @@ public class AuthentificationJunitTest {
 		String username = "MockUsername";
 		String wrongUsername = "DifferentUsername";
 		User user = new User();
-		user.setUserName(username);
+		user.setUsername(username);
 		Mockito.when(userRepo.findUserByUserName(username)).thenReturn(user);
 
 		assertEquals(true, service.isUsernameAvailable(wrongUsername));
@@ -150,7 +149,7 @@ public class AuthentificationJunitTest {
 		String username = "MockUsername";
 		String wrongUsername = "DifferentUsername";
 		User user = new User();
-		user.setUserName(username);
+		user.setUsername(username);
 		Mockito.when(userRepo.findUserByUserName(username)).thenReturn(user);
 
 		assertNotEquals(false, service.isUsernameAvailable(wrongUsername));
@@ -210,4 +209,4 @@ public class AuthentificationJunitTest {
 		assertEquals("Server Error: Unable to save Jason Web Token.", service.updateToken(token, user));
 	}
 	
-} 
+}  

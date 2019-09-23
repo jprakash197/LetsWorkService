@@ -1,5 +1,6 @@
 package com.mindtree.letswork.module.authentication.service.impl;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,19 +35,19 @@ public class AuthServiceImpl implements AuthService {
 
 	@Override
 	public User authenticatePassword(String password, User user) throws IncorrectPasswordException {
-		if (!passwordEncoder.matches(password, user.getPassword())) {
+		if (!passwordEncoder.matches(password, user.getPassword()))
 			throw new IncorrectPasswordException("Password mismatch.");
-		} else {
-			return user;
-		}
+
+		return user;
+
 	}
 
 	@Override
 	public User signup(User user) throws InvalidReferralCodeException, InvalidInputException {
-		if (user.getReferredCode() != null) {
+		if (user.getReferredCode() != null)
 			validateReferralCode(user.getReferredCode());
-		}
-		if (isUsernameAvailable(user.getUserName())) {
+
+		if (isUsernameAvailable(user.getUsername())) {
 			String token = creator.generateJwtToken(user);
 			user.setToken(token);
 			user.setRole("USER");
@@ -65,16 +66,16 @@ public class AuthServiceImpl implements AuthService {
 		} else {
 			throw new InvalidReferralCodeException("Invalid Referral Code. Sign Up could not be completed");
 		}
-	} 
+	}
 
 	@Override
 	public boolean isUsernameAvailable(String username) {
 		User user = repo.findUserByUserName(username);
-		if (user != null) {
+		if (user != null)
 			return false;
-		} else {
-			return true;
-		}
+
+		return true;
+
 	}
 
 	@Override
@@ -83,7 +84,7 @@ public class AuthServiceImpl implements AuthService {
 		if (rows != 0) {
 			return true;
 		} else {
-			throw new InvalidJWTToken ("Server Error: Unable to save Jason Web Token.");
+			throw new InvalidJWTToken("Server Error: Unable to save Jason Web Token.");
 		}
 	}
 

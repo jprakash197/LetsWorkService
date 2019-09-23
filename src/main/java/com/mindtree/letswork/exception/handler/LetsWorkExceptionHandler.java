@@ -13,12 +13,14 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import com.mindtree.letswork.exception.GlobalErrorResponse;
 import com.mindtree.letswork.module.authentication.exception.CustomAuthException;
+
 /**
  * @author M1053435
  *
  */
 public class LetsWorkExceptionHandler extends ResponseEntityExceptionHandler {
-	
+
+
 	@Override
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
 			HttpHeaders headers, HttpStatus status, WebRequest request) {
@@ -26,6 +28,7 @@ public class LetsWorkExceptionHandler extends ResponseEntityExceptionHandler {
 				request.getDescription(false));
 		return new ResponseEntity<Object>(errorDetails, HttpStatus.BAD_REQUEST);
 	}
+
 	@Override
 	protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex,
 			HttpHeaders headers, HttpStatus status, WebRequest request) {

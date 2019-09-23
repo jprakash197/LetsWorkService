@@ -10,7 +10,7 @@ public class VenueException extends LetsWorkException {
 	private static final long serialVersionUID = 1L;
 
 	public VenueException() {
-		super();
+		super(); 
 	}
 
 	public VenueException(String arg0, Throwable arg1, boolean arg2, boolean arg3) {
