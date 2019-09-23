@@ -48,9 +48,19 @@ public class VenueController {
 
 		if (venuesDto.size() != 0)
 			return ResponseEntity.ok().body(venuesDto);
-
 		else
 			return ResponseEntity.ok().body("No venues available currently");
+
+	}
+	
+	@PostMapping("/venuesz")
+	public ResponseEntity<?> postVenue(@Valid @RequestBody VenueDTO venue) throws VenueException {
+		Venue venueSaved = this.venueService.insertVenue((Venue) dtoUtil.convert(venue, Venue.class));
+
+		if (venueSaved != null)
+			return ResponseEntity.ok().body((VenueDTO) dtoUtil.convert(venueSaved, VenueDTO.class));
+		else
+			return ResponseEntity.ok().body("Venue failed to save: " + venue);
 
 	}
 	
