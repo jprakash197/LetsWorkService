@@ -22,12 +22,6 @@ public class UserProfileServiceImpl implements UserProfileService {
 	@Override
 	public User getUserByName(String name) {
 		List<User> users = userRepo.findAll();
-		if(users == null) {
-			return null;
-		}
-		users.forEach(user -> {
-			System.out.println(user.getUsername());
-		});
 		User user = users
 				.stream()
 				.filter(thecurrentUser -> thecurrentUser.getUsername().compareTo(name) == 0)

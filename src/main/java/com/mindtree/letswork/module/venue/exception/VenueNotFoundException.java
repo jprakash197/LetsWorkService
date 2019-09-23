@@ -2,6 +2,11 @@ package com.mindtree.letswork.module.venue.exception;
 
 public class VenueNotFoundException extends VenueException {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public VenueNotFoundException() {
 
 	}
@@ -23,7 +28,6 @@ public class VenueNotFoundException extends VenueException {
 
 	public VenueNotFoundException(Throwable arg0) {
 		super(arg0);
-		// TODO Auto-generated constructor stub
 	}
 
 }

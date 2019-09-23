@@ -1,6 +1,7 @@
 package com.mindtree.letswork.module.venue.controller;
 
 import java.io.UnsupportedEncodingException;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -38,9 +39,10 @@ public class VenueController {
 	@Autowired
 	private DTOUtil dtoUtil;
 
-	@PostMapping("/venues")
-	public ResponseEntity<?> getVenues(@Valid @RequestBody VenueRequestDTO details) throws VenueException {
-		List<VenueDTO> venuesDto = new ArrayList<VenueDTO>();
+	@GetMapping("/venues/{capacity}/{city}/{venueType}/{date}")
+	public ResponseEntity<List<VenueDTO>> getVenues(@Valid @PathVariable int capacity, @PathVariable String city,@PathVariable String venueType, @PathVariable Date date) throws VenueException {
+		List<VenueDTO> venuesDto = new ArrayList<>();
+		VenueRequestDTO details=new VenueRequestDTO(date,capacity,venueType,city);
 		venueService
 				.getFinalSearchedVenues(details.getVenueType(), details.getDate(), details.getCapacity(),
 						details.getCity())
@@ -49,7 +51,7 @@ public class VenueController {
 		if (venuesDto.size() != 0)
 			return ResponseEntity.ok().body(venuesDto);
 		else
-			return ResponseEntity.ok().body("No venues available currently");
+			throw new VenueNotFoundException("No venues available");
 
 	}
 	
@@ -93,7 +95,6 @@ public class VenueController {
 
 	@GetMapping("/getDetails/{id}")
 	public ResponseEntity<?> getDetails(@PathVariable int id) throws VenueException {
-		System.out.println("id is "+id);
 		Venue venue = venueService.getVenueDetails(id);
 		VenueDTO venueDto = (VenueDTO) dtoUtil.convert(venue, VenueDTO.class);
 		List<String> photo = new ArrayList<>();
@@ -120,7 +121,7 @@ public class VenueController {
 	
 	@GetMapping("/venues")
 	public List<VenueDTO> getAllVenues() throws VenueException {
-		List<VenueDTO> venuesDto = new ArrayList<VenueDTO>();
+		List<VenueDTO> venuesDto = new ArrayList<>();
 		
 		StringBuilder exceptionMessage = new StringBuilder(); 
 		

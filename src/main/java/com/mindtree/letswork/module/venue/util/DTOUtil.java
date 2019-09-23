@@ -11,7 +11,6 @@ public class DTOUtil {
 	private ModelMapper modelMapper;
 
 	public Object convert(Object object, Class<?> type) {
-		Object mappedObject = modelMapper.map(object, type);
-		return mappedObject;
+		return modelMapper.map(object, type);
 	}
 }
