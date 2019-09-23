@@ -30,6 +30,14 @@ public class Booking {
 	@ManyToOne
 	@JsonIgnore
 	private User user;
+	
+	public Booking(int id, Date date, Venue venue, User user) {
+		super();
+		this.id = id;
+		this.date = date;
+		this.venue = venue;
+		this.user = user;
+	}
 
 	public User getUser() {
 		return user;
