@@ -1,18 +1,18 @@
 package com.mindtree.letswork.venue.servicetest;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.when;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
@@ -22,6 +22,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.mindtree.letswork.constant.VenueFeatures;
 import com.mindtree.letswork.module.booking.entity.Booking;
+import com.mindtree.letswork.module.details.dto.UserDto;
+import com.mindtree.letswork.module.venue.controller.VenueController;
+import com.mindtree.letswork.module.venue.dto.VenueDTO;
 import com.mindtree.letswork.module.venue.entity.Image;
 import com.mindtree.letswork.module.venue.entity.Venue;
 import com.mindtree.letswork.module.venue.exception.VenueException;
@@ -39,6 +42,9 @@ public class VenueServiceTest {
 		}
 	}
 
+	@Autowired
+	private VenueController venueController;
+	
 	@Autowired
 	private VenueService venueService;
 
@@ -99,4 +105,16 @@ public class VenueServiceTest {
 		assertNotEquals(venueFound.getPrice(), venueFound.getAddress());
 	}
 
+	
+	@Test
+	public void getAllVenueTest() throws VenueException {
+		final int TOTAL_VENUES = 21;
+		List<VenueDTO> venues = new ArrayList<>();
+		when(venueRepo.findAll().size()).thenReturn(21);
+
+		venues = venueController.getAllVenues();
+
+		assertNotEquals(venues.size(), 0);
+
+	}
 }
