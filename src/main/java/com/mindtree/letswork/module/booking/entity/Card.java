@@ -1,9 +1,5 @@
 package com.mindtree.letswork.module.booking.entity;
 
-
-
-
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,24 +8,22 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Pattern;
 
-
 @Entity
-@Table(name="card")
+@Table(name = "card")
 public class Card {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="card_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "card_id")
 	private int cardId;
 	@Pattern(regexp = "^(\\d{4}[- ]){3}\\d{4}|\\d{16}$", message = "Invalid card number")
-	@Column(name="card_number")
+	@Column(name = "card_number")
 	private String cardNumber;
-	
-	@Column(name="card_name")
+
+	@Column(name = "card_name")
 	private String cardName;
 
-	
-	@Column(name="expiry_date")
+	@Column(name = "expiry_date")
 	private String expiryDate;
 
 	public Card() {
@@ -67,7 +61,6 @@ public class Card {
 	public void setCardName(String cardName) {
 		this.cardName = cardName;
 	}
-
 
 	public String getExpiryDate() {
 		return expiryDate;
@@ -116,11 +109,5 @@ public class Card {
 			return false;
 		return true;
 	}
-	
-	
-	
-	
-	
-	
-	
+
 }

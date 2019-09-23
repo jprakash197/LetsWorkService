@@ -5,7 +5,7 @@ import javax.validation.constraints.Pattern;
 public class CardDTO {
 
 	private int cardId;
-	
+
 	@Pattern(regexp = "^(\\d{4}[- ]){3}\\d{4}|\\d{16}$", message = "Invalid card number")
 	private String cardNumber;
 	private String cardName;
@@ -94,7 +94,5 @@ public class CardDTO {
 			return false;
 		return true;
 	}
-	
-	
 
 }
