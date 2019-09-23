@@ -52,7 +52,7 @@ public class VenueController {
 			return ResponseEntity.ok().body("No venues available currently");
 
 	}
-	
+
 	@PostMapping("/venuesz")
 	public ResponseEntity<?> postVenue(@Valid @RequestBody VenueDTO venue) throws VenueException {
 		Venue venueSaved = this.venueService.insertVenue((Venue) dtoUtil.convert(venue, Venue.class));
@@ -63,22 +63,22 @@ public class VenueController {
 			return ResponseEntity.ok().body("Venue failed to save: " + venue);
 
 	}
-	
+
 	@PutMapping("/venues")
 	public ResponseEntity<?> updateVenue(@Valid @RequestBody VenueDTO venue) throws VenueException {
-		boolean success =this.venueService.updateVenue((Venue) dtoUtil.convert(venue, Venue.class));
-		
+		boolean success = this.venueService.updateVenue((Venue) dtoUtil.convert(venue, Venue.class));
+
 		if (success) {
 			return ResponseEntity.ok().body("Venue id: " + venue.getVenueId() + " updated");
 		} else {
 			return ResponseEntity.ok().body("Venue id: " + venue.getVenueId() + " failed to update");
 		}
 	}
-	
+
 	@DeleteMapping("/venues/{venueId}")
 	public ResponseEntity<?> deleteVenue(@PathVariable int venueId) throws VenueException {
 		boolean success = this.venueService.deleteVenue(venueId);
-		
+
 		if (success) {
 			return ResponseEntity.ok().body("Venue id: " + venueId + " deleted");
 		} else {
@@ -93,37 +93,37 @@ public class VenueController {
 
 	@GetMapping("/getDetails/{id}")
 	public ResponseEntity<?> getDetails(@PathVariable int id) throws VenueException {
-		System.out.println("id is "+id);
+		System.out.println("id is " + id);
 		Venue venue = venueService.getVenueDetails(id);
 		VenueDTO venueDto = (VenueDTO) dtoUtil.convert(venue, VenueDTO.class);
 		List<String> photo = new ArrayList<>();
-	 	Set<Image> image = venue.getImages();
-	 	if(!image.isEmpty()) {
-		try {
-			for (Image img : image) {
-				byte[] encodeBase64 = Base64Utils.encode(img.getImage());
-				String base64Encoded;
+		Set<Image> image = venue.getImages();
+		if (!image.isEmpty()) {
+			try {
+				for (Image img : image) {
+					byte[] encodeBase64 = Base64Utils.encode(img.getImage());
+					String base64Encoded;
 
-				base64Encoded = new String(encodeBase64, "UTF-8");
-				String file = "data:image/jpg;base64," + base64Encoded;
-				photo.add(file);
+					base64Encoded = new String(encodeBase64, "UTF-8");
+					String file = "data:image/jpg;base64," + base64Encoded;
+					photo.add(file);
+				}
+				venueDto.setImage(photo);
+			} catch (UnsupportedEncodingException e) {
+
+				throw new VenueException(e.getMessage());
 			}
-			venueDto.setImage(photo);
-		} catch (UnsupportedEncodingException e) {
-
-			throw new VenueException(e.getMessage());
 		}
-	 	}
 
 		return ResponseEntity.ok().body(venueDto);
 	}
-	
+
 	@GetMapping("/venues")
-	public List<VenueDTO> getAllVenues() throws VenueException {
+	public ResponseEntity<?> getAllVenues() throws VenueException {
 		List<VenueDTO> venuesDto = new ArrayList<VenueDTO>();
-		
-		StringBuilder exceptionMessage = new StringBuilder(); 
-		
+
+		StringBuilder exceptionMessage = new StringBuilder();
+
 		this.venueService.getAllVenues().forEach(venue -> {
 			List<String> photo = new ArrayList<>();
 			Set<Image> image = venue.getImages();
@@ -142,14 +142,15 @@ public class VenueController {
 			} catch (UnsupportedEncodingException e) {
 				exceptionMessage.append(e.getMessage());
 			}
-			
+
 			venuesDto.add(venueDto);
 		});
-		
-		 if (exceptionMessage.length() != 0) {
-			throw new VenueException(exceptionMessage.toString());
+
+		if (exceptionMessage.length() != 0) {
+			return ResponseEntity.ok().body(exceptionMessage);
+		} else {
+			return ResponseEntity.ok().body(venuesDto);
 		}
 
-		return venuesDto;
 	}
 }
