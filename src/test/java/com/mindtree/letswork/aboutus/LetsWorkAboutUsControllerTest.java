@@ -15,7 +15,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.mindtree.letswork.module.details.controller.UserControl;
 import com.mindtree.letswork.module.details.dto.UserDto;
-import com.mindtree.letswork.module.details.entity.User;
+import com.mindtree.letswork.module.details.entity.UserDetails;
 import com.mindtree.letswork.module.details.repository.User1Repository;
 
 @RunWith(SpringRunner.class)
@@ -33,10 +33,10 @@ public class LetsWorkAboutUsControllerTest {
 
 		String str = "Example String";
 		byte[] b = str.getBytes();
-		User user = new User(101, "rajath", "bhargav@gmail.com", b, "8939206370");
-		User user1 = new User(201, "bhargav", "bhargav@gmail.com", b, "8939206370");
-		List<User> userList = new ArrayList<>();
-		userList.add(user);
+		UserDetails userDetails = new UserDetails(101, "rajath", "bhargav@gmail.com", b, "8939206370");
+		UserDetails user1 = new UserDetails(201, "bhargav", "bhargav@gmail.com", b, "8939206370");
+		List<UserDetails> userList = new ArrayList<>();
+		userList.add(userDetails);
 		userList.add(user1);
 		UserDto userDto = new UserDto(101, "rajath", "bhargav@gmail.com", "data:image/jpg;base64,RXhhbXBsZSBTdHJpbmc=",
 				"8939206370");

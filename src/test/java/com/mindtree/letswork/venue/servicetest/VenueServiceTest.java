@@ -28,6 +28,7 @@ import com.mindtree.letswork.module.venue.dto.VenueDTO;
 import com.mindtree.letswork.module.venue.entity.Image;
 import com.mindtree.letswork.module.venue.entity.Venue;
 import com.mindtree.letswork.module.venue.exception.VenueException;
+import com.mindtree.letswork.module.venue.exception.VenueNotFoundException;
 import com.mindtree.letswork.module.venue.repository.VenueRepo;
 import com.mindtree.letswork.module.venue.service.VenueService;
 import com.mindtree.letswork.module.venue.service.impl.VenueServiceImpl;
@@ -51,18 +52,19 @@ public class VenueServiceTest {
 	@MockBean
 	private VenueRepo venueRepo;
 
-	@Test
+	@Test(expected=VenueException.class)
 	public void getVenueByIdTest() throws VenueException {
 		Set<Image> img = new HashSet<>();
 		Set<VenueFeatures> feature = new HashSet<>();
 		Set<Booking> bookings = new HashSet<>();
 		Venue room = new Venue("abc", "xyz", "asd", 123, 300, "qwertyu", 4, 1200, "training", bookings, img, feature);
-		
+		 
 		Mockito.when(venueRepo.findById(1)).thenReturn(Optional.of(room));
 		Venue venueFound = venueService.getVenueDetails(1);
 
 		assertEquals(venueFound.getVenueName(), room.getVenueName());
 		assertNotEquals(venueFound.getVenueName(), "eirwe");
+		assertEquals(VenueException.class,venueService.getVenueDetails(41));
 	}
 	
 	
