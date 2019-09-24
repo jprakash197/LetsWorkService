@@ -83,7 +83,7 @@ public class VenueServiceImplTest {
 		venues.add(venue2);
 
 		Mockito.when(venueRepository.findAll()).thenReturn(venues);
-		java.sql.Date currentDate = Date.valueOf("2019-09-23");
+		java.sql.Date currentDate = Date.valueOf("2020-09-23");
 		List<Venue> expected = new ArrayList<>();
 		expected.add(venue1);
 		assertEquals(expected, venueService.getFinalSearchedVenues("Meeting", currentDate, 100, "Bangalore"));
@@ -103,7 +103,7 @@ public class VenueServiceImplTest {
 		venues.add(venue2);
 
 		Mockito.when(venueRepository.findAll()).thenReturn(venues);
-		java.sql.Date currentDate = Date.valueOf("2019-09-23");
+		java.sql.Date currentDate = Date.valueOf("2020-09-23");
 		List<Venue> expected = new ArrayList<>();
 		expected.add(venue1);
 		assertEquals(VenueException.class,
@@ -124,7 +124,7 @@ public class VenueServiceImplTest {
 		venues.add(venue2);
 
 		Mockito.when(venueRepository.findAll()).thenReturn(venues);
-		java.sql.Date currentDate = Date.valueOf("2019-09-23");
+		java.sql.Date currentDate = Date.valueOf("2020-09-23");
 		List<Venue> expected = new ArrayList<>();
 		expected.add(venue1);
 		assertEquals(VenueException.class,
