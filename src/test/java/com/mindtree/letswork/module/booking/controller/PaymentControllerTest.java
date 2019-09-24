@@ -8,6 +8,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.mail.MailSendException;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.mindtree.letswork.module.authentication.entity.User;
@@ -34,7 +35,7 @@ public class PaymentControllerTest {
 	private User user = new User();
 
 	@Test
-	public void addPaymentTest() throws PaymentApplicationException {
+	public void addPaymentTest() throws PaymentApplicationException, MailSendException {
 		PaymentDTO paymentDto = new PaymentDTO(101, "card", new Card(1001, "1010-1010-1010-1010", "Durga", "09/28"), user);
 		Payment payment1 = (Payment) dToUtil.convert(paymentDto, Payment.class);
 		when(paymentRepository.save(payment1)).thenReturn(payment1);
